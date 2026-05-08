@@ -5,68 +5,59 @@ import { notFound } from "next/navigation"
 import Link from "next/link"
 
 export default function ProductDetailPage({ params }: { params: { id: string } }) {
-  // 根据URL里的id，找到对应的产品数据
   const product = products.find(p => p.id === params.id)
 
-  // 如果找不到产品，显示404页面
   if (!product) {
     return notFound()
   }
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-white">
       <Header />
       
       <main className="pt-32 pb-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* 面包屑导航 */}
           <nav className="mb-8">
-            <ol className="flex items-center gap-2 text-sm text-muted-foreground">
-              <li><Link href="/" className="hover:text-primary">Home</Link></li>
+            <ol className="flex items-center gap-2 text-sm text-gray-500">
+              <li><Link href="/" className="hover:text-black">Home</Link></li>
               <li>/</li>
-              <li><Link href="/products" className="hover:text-primary">Products</Link></li>
+              <li><Link href="/products" className="hover:text-black">Products</Link></li>
               <li>/</li>
-              <li className="text-foreground">{product.name}</li>
+              <li className="text-black">{product.name}</li>
             </ol>
           </nav>
 
           <div className="grid md:grid-cols-2 gap-12">
-            {/* 产品图片 */}
-            <div className="rounded-2xl overflow-hidden bg-muted/30">
-              <img 
-                src={product.image} 
-                alt={product.name}
-                className="w-full h-auto object-cover"
-              />
+            <div className="rounded-2xl overflow-hidden bg-gray-100 h-80 flex items-center justify-center">
+              <span className="text-gray-400">Product Image</span>
             </div>
 
-            {/* 产品信息 */}
             <div>
-              <h1 className="text-3xl font-bold text-foreground mb-4">{product.name}</h1>
-              <p className="text-lg text-muted-foreground mb-6">{product.description}</p>
+              <h1 className="text-3xl font-bold text-black mb-4">{product.name}</h1>
+              <p className="text-lg text-gray-600 mb-6">{product.description}</p>
               
               <div className="space-y-4 mb-8">
                 <div className="flex items-center gap-3">
-                  <span className="font-medium text-foreground">Material:</span>
-                  <span className="text-muted-foreground">{product.material}</span>
+                  <span className="font-medium text-black">Material:</span>
+                  <span className="text-gray-600">{product.material}</span>
                 </div>
                 <div className="flex items-center gap-3">
-                  <span className="font-medium text-foreground">Size:</span>
-                  <span className="text-muted-foreground">{product.size}</span>
+                  <span className="font-medium text-black">Size:</span>
+                  <span className="text-gray-600">{product.size}</span>
                 </div>
                 <div className="flex items-center gap-3">
-                  <span className="font-medium text-foreground">MOQ:</span>
-                  <span className="text-muted-foreground">{product.moq}</span>
+                  <span className="font-medium text-black">MOQ:</span>
+                  <span className="text-gray-600">{product.moq}</span>
                 </div>
                 <div className="flex items-center gap-3">
-                  <span className="font-medium text-foreground">Certification:</span>
-                  <span className="text-muted-foreground">{product.certification}</span>
+                  <span className="font-medium text-black">Certification:</span>
+                  <span className="text-gray-600">{product.certification}</span>
                 </div>
               </div>
 
               <Link
                 href="/contact"
-                className="inline-block bg-primary text-primary-foreground px-8 py-3 rounded-xl font-medium hover:bg-primary/90 transition-colors"
+                className="inline-block bg-black text-white px-8 py-3 rounded-xl font-medium hover:bg-gray-800 transition-colors"
               >
                 Get Quote
               </Link>
