@@ -1,4 +1,4 @@
-// Company info - 保留公司信息
+// Company info
 export const companyInfo = {
   name: "ADA CERAMICS",
   tagline: "Premium Food Grade Ceramic Manufacturer",
@@ -24,7 +24,7 @@ export const companyInfo = {
   },
 }
 
-// Certifications - 保留认证信息
+// Certifications
 export const certifications = [
   {
     id: "fda",
@@ -52,8 +52,36 @@ export const certifications = [
   },
 ]
 
-// 所有产品数据现在从 Supabase public.products 表获取
-// 使用 lib/supabase/products.ts 中的函数:
-// - getAllProducts() - 获取所有产品
-// - getProductsByCategory(category) - 按分类获取产品
-// - getProductBySlug(slug) - 获取单个产品
+// ✅ 产品数据（必须加这个，否则详情页报错）
+export const products = [
+  {
+    id: "492e2698-07c8-48c1-a0d5-1ff2bc75b0bd",
+    name: "White High-temp Porcelain Dinner Set",
+    description: "Premium food grade ceramic dinner set for home and restaurant use.",
+    material: "High-temperature Porcelain",
+    size: "Customizable",
+    moq: "1000 pcs",
+    certification: "FDA, LFGB",
+    image: "/images/product1.jpg"
+  },
+  {
+    id: "2",
+    name: "Custom Ceramic Coffee Mug",
+    description: "Eco-friendly ceramic mug with custom logo printing.",
+    material: "Ceramic",
+    size: "300ml / 400ml",
+    moq: "2000 pcs",
+    certification: "FDA",
+    image: "/images/product2.jpg"
+  },
+  {
+    id: "3",
+    name: "Ceramic Bowl Set",
+    description: "Durable ceramic bowl set for kitchen use.",
+    material: "Ceramic",
+    size: "4.5/5/6 inch",
+    moq: "3000 pcs",
+    certification: "FDA, LFGB",
+    image: "/images/product3.jpg"
+  }
+]
