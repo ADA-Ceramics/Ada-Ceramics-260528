@@ -23,7 +23,6 @@ export default function ContactPage() {
     e.preventDefault()
     setIsSubmitting(true)
     
-    // Simulate form submission
     await new Promise((resolve) => setTimeout(resolve, 1000))
     
     setIsSubmitting(false)
@@ -74,7 +73,6 @@ export default function ContactPage() {
     <div className="min-h-screen bg-background">
       <Header />
       
-      {/* Hero Section */}
       <section className="pt-32 pb-16 bg-gradient-to-br from-[#1a1a2e] via-[#16213e] to-[#0f3460]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="text-4xl md:text-5xl font-bold text-white mb-6">
@@ -87,11 +85,9 @@ export default function ContactPage() {
         </div>
       </section>
 
-      {/* Contact Section */}
       <section className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
-            {/* Contact Info */}
             <div className="lg:col-span-1 space-y-8">
               <div>
                 <h2 className="text-2xl font-bold text-foreground mb-6">
@@ -156,7 +152,6 @@ export default function ContactPage() {
                 </div>
               </div>
 
-              {/* Quick Contact */}
               <div className="bg-gradient-to-br from-green-500 to-green-600 rounded-2xl p-6 text-white">
                 <div className="flex items-center gap-3 mb-4">
                   <MessageCircle className="w-6 h-6" />
@@ -178,7 +173,6 @@ export default function ContactPage() {
               </div>
             </div>
 
-            {/* Contact Form */}
             <div className="lg:col-span-2">
               <div className="bg-card rounded-2xl p-8 border border-border">
                 <h2 className="text-2xl font-bold text-foreground mb-6">
@@ -254,9 +248,7 @@ export default function ContactPage() {
                         className="w-full px-4 py-3 rounded-xl border border-border bg-background focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all"
                       >
                         <option value="">Select product category</option>
-                        {categories.map((cat) => (
-                          <option key={cat.id} value={cat.id}>{cat.name}</option>
-                        ))}
+                        <option value="ceramic">Ceramic Products</option>
                         <option value="custom">Custom / OEM / ODM</option>
                         <option value="other">Other</option>
                       </select>
@@ -318,7 +310,6 @@ export default function ContactPage() {
         </div>
       </section>
 
-      {/* Map Section */}
       <section className="py-20 bg-muted/30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
