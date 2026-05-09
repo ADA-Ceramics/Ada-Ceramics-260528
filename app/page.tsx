@@ -11,11 +11,11 @@ export default async function ProductsPage({
 }) {
   const selectedCategoryId = searchParams?.category
 
-  // 直接用你项目里已有的函数，不会再报环境变量错误
+  // 读取分类和产品数据
   const categories = await getProductCategories()
   const products = await getAllProducts(selectedCategoryId)
 
-  // 找到当前选中的分类（用于显示标题）
+  // 当前选中的分类（用于标题）
   const currentCategory = categories.find(c => c.id === selectedCategoryId)
 
   return (
@@ -35,7 +35,7 @@ export default async function ProductsPage({
                   className="group"
                 >
                   <div className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-shadow">
-                    {/* 分类图片：如果没有图片，用灰色背景占位 */}
+                    {/* 分类图片 */}
                     <div className="h-64 bg-gray-100">
                       {cat.image ? (
                         <img 
@@ -62,7 +62,7 @@ export default async function ProductsPage({
             </div>
           </section>
 
-          {/* 产品列表部分 */}
+          {/* 产品列表 */}
           <h1 className="text-3xl font-bold mb-8">
             {currentCategory ? `${currentCategory.name} Products` : "All Products"}
           </h1>
