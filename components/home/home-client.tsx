@@ -219,7 +219,7 @@ Details: ${formData.projectDetails}`
     src="/bg.webp"
     alt="Hero Background"
     fill
-    style={{ objectFit: 'cover', objectPosition: 'center', opacity: 0.3 }}
+    style={{ objectFit: 'cover', objectPosition: 'center', opacity: 0.6 }}
     priority
   />
 </div>
