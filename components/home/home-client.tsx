@@ -3,7 +3,8 @@
 import Link from "next/link"
 import Image from "next/image"
 import { useState } from "react"
-import type { CategoryData } from "@/lib/supabase/types"
+import { Footer } from "@/components/layout/footer"
+import type { Product } from "@/lib/supabase/types"
 import {
   ArrowRight,
   Shield,
@@ -22,6 +23,13 @@ import {
   Check,
   Send,
 } from "lucide-react"
+
+interface CategoryData {
+  slug: string
+  name: string
+  description: string
+  image: string | null
+}
 
 interface HomeClientProps {
   categories: CategoryData[]
@@ -55,7 +63,7 @@ Details: ${formData.projectDetails}`
   }
 
   return (
-    <div style={{ minHeight: '100vh', backgroundColor: '#ffffff', overflowX: 'hidden' }}>
+    <div style={{ minHeight: '100vh', backgroundColor: '#ffffff' }}>
       {/* Header */}
       <header style={{ 
         position: 'fixed', 
@@ -67,10 +75,10 @@ Details: ${formData.projectDetails}`
         backdropFilter: 'blur(8px)',
         borderBottom: '1px solid #f3f4f6',
         width: '100%',
-        overflowX: 'hidden',
+        overflow: 'hidden',
         boxSizing: 'border-box'
       }}>
-        <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 24px', width: '100%', boxSizing: 'border-box', overflowX: 'hidden' }}>
+        <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 24px', width: '100%', boxSizing: 'border-box' }}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: '72px' }}>
             <Link href="/" style={{ textDecoration: 'none' }}>
               <span style={{ 
@@ -84,8 +92,7 @@ Details: ${formData.projectDetails}`
               </span>
             </Link>
 
-            {/* 桌面端菜单，只在 lg 及以上显示 */}
-            <nav style={{ display: 'none' }} className="lg:flex">
+            <nav style={{ display: 'flex', alignItems: 'center', gap: '40px' }} className="hidden lg:flex">
               <div
                 style={{ position: 'relative' }}
                 onMouseEnter={() => setIsProductsOpen(true)}
@@ -831,4 +838,60 @@ Details: ${formData.projectDetails}`
                     <select
                       value={formData.productCategory}
                       onChange={(e) => setFormData({ ...formData, productCategory: e.target.value })}
-                      style={{ width: '100%', padding: '12px
+                      style={{ width: '100%', padding: '12px 16px', border: '1px solid #e5e7eb', borderRadius: '6px', fontSize: '14px', color: '#6b7280', backgroundColor: '#ffffff', cursor: 'pointer' }}
+                    >
+                      <option value="">Select product category</option>
+                      <option value="white-porcelain">White High-temp Porcelain</option>
+                      <option value="color-glaze">Color Glaze Ceramic</option>
+                      <option value="kiln-change">Kiln Change Ceramic</option>
+                      <option value="custom">Custom Design</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label style={{ display: 'block', fontSize: '14px', fontWeight: 500, color: '#1a1a1a', marginBottom: '8px' }}>
+                      Estimated Quantity
+                    </label>
+                    <input
+                      type="text"
+                      value={formData.estimatedQuantity}
+                      onChange={(e) => setFormData({ ...formData, estimatedQuantity: e.target.value })}
+                      style={{ width: '100%', padding: '12px 16px', border: '1px solid #e5e7eb', borderRadius: '6px', fontSize: '14px', color: '#1a1a1a', backgroundColor: '#ffffff' }}
+                      placeholder="e.g., 5,000 pieces"
+                    />
+                  </div>
+                </div>
+
+                <div style={{ marginBottom: '24px' }}>
+                  <label style={{ display: 'block', fontSize: '14px', fontWeight: 500, color: '#1a1a1a', marginBottom: '8px' }}>
+                    Project Details <span style={{ color: '#ef4444' }}>*</span>
+                  </label>
+                  <textarea
+                    rows={4}
+                    value={formData.projectDetails}
+                    onChange={(e) => setFormData({ ...formData, projectDetails: e.target.value })}
+                    style={{ width: '100%', padding: '12px 16px', border: '1px solid #e5e7eb', borderRadius: '6px', fontSize: '14px', color: '#1a1a1a', backgroundColor: '#ffffff', resize: 'vertical' }}
+                    placeholder="Please describe your requirements, including product specifications, customization needs, target price, etc."
+                  />
+                </div>
+
+                <button
+                  type="submit"
+                  style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', backgroundColor: '#1f2937', color: '#ffffff', padding: '12px 24px', borderRadius: '6px', fontSize: '14px', fontWeight: 500, border: 'none', cursor: 'pointer' }}
+                >
+                  Send Inquiry
+                  <Send style={{ width: '16px', height: '16px' }} />
+                </button>
+
+                <p style={{ marginTop: '16px', fontSize: '13px', color: '#9ca3af' }}>
+                  By submitting this form, you agree to our Privacy Policy. We will respond within 24 hours.
+                </p>
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <Footer />
+    </div>
+  )
+}
