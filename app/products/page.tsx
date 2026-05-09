@@ -28,7 +28,7 @@ export default async function ProductsPage() {
       <Header />
 
       {/* Hero Section */}
-      <section className="pt-32 pb-16 bg-[#f5f3ef]">
+      <section className="pt-28 pb-13 bg-[#f5f3ef]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="text-4xl md:text-5xl font-bold text-white mb-6">
             Our Product Collections
