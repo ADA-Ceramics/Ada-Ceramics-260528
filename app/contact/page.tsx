@@ -73,7 +73,7 @@ export default function ContactPage() {
     <div className="min-h-screen bg-background">
       <Header />
       
-      <section className="pt-32 pb-16 bg-gradient-to-br from-[#1a1a2e] via-[#16213e] to-[#0f3460]">
+      <section className="pt-32 pb-16 bg-[#f5f3ef] via-[#16213e] to-[#0f3460]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="text-4xl md:text-5xl font-bold text-white mb-6">
             Get In Touch
