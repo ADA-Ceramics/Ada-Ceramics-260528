@@ -30,7 +30,7 @@ export default async function ProductsPage() {
       {/* Hero Section */}
       <section className="pt-28 pb-13 bg-[#f5f3ef]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-4xl md:text-5xl font-bold text-white mb-6">
+          <h1 className="text-4xl md:text-5xl font-bold text-black mb-6">
             Our Product Collections
           </h1>
           <p className="text-lg text-black/70 max-w-2xl mx-auto">
@@ -43,7 +43,7 @@ export default async function ProductsPage() {
       {/* Categories Grid */}
       <section className="py-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-2xl font-bold text-foreground mb-4">Browse by Category</h2>
+          <h2 className="text-2xl font-bold text-foreground mb-8">Browse by Category</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
             {productCountByCategory.map((category) => (
               <Link
