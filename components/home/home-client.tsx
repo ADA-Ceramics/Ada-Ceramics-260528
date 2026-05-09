@@ -213,18 +213,16 @@ Details: ${formData.projectDetails}`
         backgroundColor: '#f5f3ef',
         overflow: 'hidden',
       }}>
-        {/* 背景 - 如果有产品图则用产品图，否则用纯色背景 */}
-        <div style={{ position: 'absolute', inset: 0, backgroundColor: '#f5f3ef' }}>
-          {categories[0]?.image && (
-            <Image
-              src={categories[0].image}
-              alt="Hero Background"
-              fill
-              style={{ objectFit: 'cover', objectPosition: 'center', opacity: 0.3 }}
-              priority
-            />
-          )}
-        </div>
+       {/* 背景 - 使用 public 目录下的 bg.webp */}
+<div style={{ position: 'absolute', inset: 0, backgroundColor: '#f5f3ef' }}>
+  <Image
+    src="/bg.webp"
+    alt="Hero Background"
+    fill
+    style={{ objectFit: 'cover', objectPosition: 'center', opacity: 0.3 }}
+    priority
+  />
+</div>
 
         <div style={{ 
           position: 'relative', 
