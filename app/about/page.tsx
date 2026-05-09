@@ -55,13 +55,13 @@ export default function AboutPage() {
         </div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="max-w-3xl">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
-              Crafting Excellence
-              <span className="block text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
+              <span style={{ color: '#1a1a1a' }}>Crafting Excellence</span>
+              <span className="block" style={{ color: '#8b7355' }}>
                 Since 2003
               </span>
             </h1>
-            <p className="text-lg md:text-xl text-white/70 leading-relaxed">
+            <p className="text-lg md:text-xl leading-relaxed" style={{ color: '#6b7280' }}>
               We are a leading ceramic manufacturer based in Chaozhou, China, 
               dedicated to producing premium food-grade ceramics for global brands.
             </p>
