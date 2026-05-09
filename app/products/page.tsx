@@ -33,7 +33,7 @@ export default async function ProductsPage() {
           <h1 className="text-4xl md:text-5xl font-bold text-white mb-6">
             Our Product Collections
           </h1>
-          <p className="text-lg text-white/70 max-w-2xl mx-auto">
+          <p className="text-lg text-black/70 max-w-2xl mx-auto">
             Discover our comprehensive range of food-grade ceramic products,
             each crafted with precision and care to meet the highest standards.
           </p>
@@ -41,7 +41,7 @@ export default async function ProductsPage() {
       </section>
 
       {/* Categories Grid */}
-      <section className="py-16">
+      <section className="py-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-2xl font-bold text-foreground mb-4">Browse by Category</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
