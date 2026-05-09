@@ -71,7 +71,7 @@ export default function OemOdmPage() {
       step: 6,
       title: "Mass Production",
       description: "Full-scale production with regular progress updates and in-line quality checks.",
-      duration: "15-45 days",
+      duration: "35-45 days",
     },
     {
       step: 7,
@@ -90,7 +90,7 @@ export default function OemOdmPage() {
   const advantages = [
     {
       icon: Clock,
-      title: "15+ Years OEM/ODM Experience",
+      title: "20+ Years OEM/ODM Experience",
       description: "Extensive experience working with global brands across diverse product categories.",
     },
     {
