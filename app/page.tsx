@@ -1,13 +1,8 @@
 import { Header } from "@/components/layout/header"
 import { Footer } from "@/components/layout/footer"
 import Link from "next/link"
-import { createClient } from "@supabase/supabase-js"
-
-// 初始化 Supabase 客户端
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-)
+import { getAllProducts } from "@/lib/supabase/products"
+import { getProductCategories } from "@/lib/supabase/categories"
 
 export default async function ProductsPage({
   searchParams,
@@ -16,20 +11,9 @@ export default async function ProductsPage({
 }) {
   const selectedCategoryId = searchParams?.category
 
-  // 读取所有分类数据
-  const { data: categories, error: catError } = await supabase
-    .from("product_categories")
-    .select("*")
-
-  if (catError) throw new Error("Failed to load categories")
-
-  // 读取产品数据（按分类筛选）
-  let query = supabase.from("products").select("*")
-  if (selectedCategoryId) {
-    query = query.eq("category", selectedCategoryId)
-  }
-  const { data: products, error: prodError } = await query
-  if (prodError) throw new Error("Failed to load products")
+  // 直接用你项目里已有的函数，不会再报环境变量错误
+  const categories = await getProductCategories()
+  const products = await getAllProducts(selectedCategoryId)
 
   // 找到当前选中的分类（用于显示标题）
   const currentCategory = categories.find(c => c.id === selectedCategoryId)
@@ -40,9 +24,7 @@ export default async function ProductsPage({
 
       <main className="pt-32 pb-20">
         <div className="max-w-7xl mx-auto px-4">
-          {/* ===================== */}
-          /* 1. 分类板块（复刻首页样式） */
-          {/* ===================== */}
+          {/* 分类板块（复刻首页样式） */}
           <section className="mb-16">
             <h2 className="text-2xl font-bold mb-8 text-center">Browse by Category</h2>
             <div className="grid md:grid-cols-3 gap-6">
@@ -71,7 +53,7 @@ export default async function ProductsPage({
                     <div className="p-6">
                       <h3 className="text-lg font-bold mb-2">{cat.name}</h3>
                       <p className="text-gray-600 text-sm">
-                        {products.filter(p => p.category === cat.id).length} 个产品
+                        {products.filter(p => p.category === cat.id).length} products
                       </p>
                     </div>
                   </div>
@@ -80,9 +62,7 @@ export default async function ProductsPage({
             </div>
           </section>
 
-          {/* ===================== */}
-          /* 2. 产品列表部分 */
-          {/* ===================== */}
+          {/* 产品列表部分 */}
           <h1 className="text-3xl font-bold mb-8">
             {currentCategory ? `${currentCategory.name} Products` : "All Products"}
           </h1>
