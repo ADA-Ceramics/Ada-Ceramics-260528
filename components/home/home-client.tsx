@@ -359,7 +359,7 @@ Details: ${formData.projectDetails}`
         <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 24px' }}>
           <div style={{ textAlign: 'center', marginBottom: '64px' }}>
             <p style={{ color: '#8b7355', fontSize: '14px', fontWeight: 600, marginBottom: '12px', letterSpacing: '0.05em', textTransform: 'uppercase' }}>Our Collections</p>
-            <h2 style={{ fontFamily: 'Georgia, Times New Roman, serif', fontSize: '40px', fontWeight: 400, color: '#1a1a1a', marginBottom: '16px' }}>
+            <h2 style={{ fontFamily: 'Georgia, Times New Roman, serif', fontSize: '56px', fontWeight: 400, color: '#1a1a1a', marginBottom: '16px' }}>
               Premium Product Categories
             </h2>
             <p style={{ color: '#6b7280', fontSize: '16px', maxWidth: '600px', margin: '0 auto', lineHeight: 1.6 }}>
