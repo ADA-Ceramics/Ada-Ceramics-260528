@@ -100,7 +100,7 @@ export default function FactoryPage() {
       <Header />
       
       {/* Hero Section */}
-      <section className="pt-32 pb-20 bg-gradient-to-br from-[#1a1a2e] via-[#16213e] to-[#0f3460] relative overflow-hidden">
+      <section className="pt-32 pb-16 bg-[#f5f3ef] relative overflow-hidden">
         <div className="absolute inset-0 opacity-10">
           <div className="absolute top-20 left-10 w-72 h-72 bg-white/20 rounded-full blur-3xl" />
           <div className="absolute bottom-20 right-10 w-96 h-96 bg-blue-500/20 rounded-full blur-3xl" />
