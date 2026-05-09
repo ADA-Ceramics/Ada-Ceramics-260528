@@ -55,7 +55,7 @@ export function Header() {
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden 2xl:flex items-center gap-6">
+          <nav className="hidden lg:flex items-center gap-8">
             {navItems.map((item) => (
               <div key={item.name} className="relative group">
                 {item.hasDropdown ? (
@@ -149,7 +149,7 @@ export function Header() {
           {/* Mobile Menu Button */}
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="2xl:hidden p-2"
+            className="lg:hidden p-2"
           >
             {isMobileMenuOpen ? (
               <X className={cn(
