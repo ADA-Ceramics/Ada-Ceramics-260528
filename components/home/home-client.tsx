@@ -92,8 +92,8 @@ Details: ${formData.projectDetails}`
               </span>
             </Link>
 
-            {/* 关键修复：桌面菜单只在 lg 及以上显示，手机端完全隐藏 */}
-            <nav style={{ display: 'none' }} className="lg:flex" >
+            {/* 桌面端菜单，只在 lg 及以上显示 */}
+            <nav style={{ display: 'none' }} className="lg:flex">
               <div
                 style={{ position: 'relative' }}
                 onMouseEnter={() => setIsProductsOpen(true)}
@@ -845,16 +845,3 @@ Details: ${formData.projectDetails}`
                       <option value="white-porcelain">White High-temp Porcelain</option>
                       <option value="color-glaze">Color Glaze Ceramic</option>
                       <option value="kiln-change">Kiln Change Ceramic</option>
-                      <option value="custom">Custom Design</option>
-                    </select>
-                  </div>
-                  <div>
-                    <label style={{ display: 'block', fontSize: '14px', fontWeight: 500, color: '#1a1a1a', marginBottom: '8px' }}>
-                      Estimated Quantity
-                    </label>
-                    <input
-                      type="text"
-                      value={formData.estimatedQuantity}
-                      onChange={(e) => setFormData({ ...formData, estimatedQuantity: e.target.value })}
-                      style={{ width: '100%', padding: '12px 16px', border: '1px solid #e5e7eb', borderRadius: '6px', fontSize: '14px', color: '#1a1a1a', backgroundColor: '#ffffff' }}
-                      placeholder="e.g
