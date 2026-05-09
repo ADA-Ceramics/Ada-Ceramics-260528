@@ -3,8 +3,7 @@
 import Link from "next/link"
 import Image from "next/image"
 import { useState } from "react"
-import { Footer } from "@/components/layout/footer"
-import type { Product } from "@/lib/supabase/types"
+import type { CategoryData } from "@/lib/supabase/types"
 import {
   ArrowRight,
   Shield,
@@ -23,13 +22,6 @@ import {
   Check,
   Send,
 } from "lucide-react"
-
-interface CategoryData {
-  slug: string
-  name: string
-  description: string
-  image: string | null
-}
 
 interface HomeClientProps {
   categories: CategoryData[]
@@ -839,9 +831,4 @@ Details: ${formData.projectDetails}`
                     <select
                       value={formData.productCategory}
                       onChange={(e) => setFormData({ ...formData, productCategory: e.target.value })}
-                      style={{ width: '100%', padding: '12px 16px', border: '1px solid #e5e7eb', borderRadius: '6px', fontSize: '14px', color: '#6b7280', backgroundColor: '#ffffff', cursor: 'pointer' }}
-                    >
-                      <option value="">Select product category</option>
-                      <option value="white-porcelain">White High-temp Porcelain</option>
-                      <option value="color-glaze">Color Glaze Ceramic</option>
-                      <option value="kiln-change">Kiln Change Ceramic</option>
+                      style={{ width: '100%', padding: '12px
