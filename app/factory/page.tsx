@@ -107,13 +107,13 @@ export default function FactoryPage() {
         </div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="max-w-3xl">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
-              State-of-the-Art
-              <span className="block text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
+              <span style={{ color: '#1a1a1a' }}>State-of-the-Art</span>
+              <span className="block" style={{ color: '#8b7355' }}>
                 Manufacturing Facility
               </span>
             </h1>
-            <p className="text-lg md:text-xl text-white/70 leading-relaxed">
+            <p className="text-lg md:text-xl leading-relaxed" style={{ color: '#6b7280' }}>
               Our 50,000 sqm facility combines cutting-edge technology with traditional 
               craftsmanship, ensuring every piece meets the highest standards.
             </p>
