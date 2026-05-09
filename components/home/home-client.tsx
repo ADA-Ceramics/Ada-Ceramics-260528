@@ -73,9 +73,12 @@ Details: ${formData.projectDetails}`
         zIndex: 50, 
         backgroundColor: 'rgba(255,255,255,0.98)',
         backdropFilter: 'blur(8px)',
-        borderBottom: '1px solid #f3f4f6'
+        borderBottom: '1px solid #f3f4f6',
+        width: '100%',
+        overflow: 'hidden',
+        boxSizing: 'border-box'
       }}>
-        <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 24px' }}>
+        <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 24px', width: '100%', boxSizing: 'border-box' }}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: '72px' }}>
             <Link href="/" style={{ textDecoration: 'none' }}>
               <span style={{ 
@@ -189,7 +192,7 @@ Details: ${formData.projectDetails}`
         </div>
 
         {isMobileMenuOpen && (
-          <div className="lg:hidden" style={{ backgroundColor: '#ffffff', borderTop: '1px solid #e5e7eb', padding: '16px' }}>
+          <div className="lg:hidden" style={{ backgroundColor: '#ffffff', borderTop: '1px solid #e5e7eb', padding: '16px', width: '100%', boxSizing: 'border-box' }}>
             <nav style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
               <Link href="/products" onClick={() => setIsMobileMenuOpen(false)} style={{ padding: '12px 16px', color: '#374151', textDecoration: 'none', borderRadius: '8px' }}>Products</Link>
               <Link href="/about" onClick={() => setIsMobileMenuOpen(false)} style={{ padding: '12px 16px', color: '#374151', textDecoration: 'none', borderRadius: '8px' }}>About Us</Link>
