@@ -213,17 +213,15 @@ Details: ${formData.projectDetails}`
         backgroundColor: '#f5f3ef',
         overflow: 'hidden',
       }}>
-        {/* 背景 - 如果有产品图则用产品图，否则用纯色背景 */}
+        {/* 背景 - 已替换为你提供的新背景图 */}
         <div style={{ position: 'absolute', inset: 0, backgroundColor: '#f5f3ef' }}>
-          {categories[0]?.image && (
-            <Image
-              src={categories[0].image}
-              alt="Hero Background"
-              fill
-              style={{ objectFit: 'cover', objectPosition: 'center', opacity: 0.3 }}
-              priority
-            />
-          )}
+          <Image
+            src="https://eqlatpimljraiapadkww.supabase.co/storage/v1/object/sign/showed%20pictures/bg.webp?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV83MDBjNDhiYy1hM2U4LTQxNWMtOTdhMi0yNTBiN2RkYjIxMWQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJzaG93ZWQgcGljdHVyZXMvYmcud2VicCIsImlhdCI6MTc3ODI5NDMwNCwiZXhwIjo0OTMxODk0MzA0fQ.Tp2S4_dvNxOkHxeeZNMwBL5rtc2-JCR-BR2Xwe5wtTc"
+            alt="Hero Background"
+            fill
+            style={{ objectFit: 'cover', objectPosition: 'center', opacity: 0.3 }}
+            priority
+          />
         </div>
 
         <div style={{ 
@@ -492,7 +490,7 @@ Details: ${formData.projectDetails}`
                   <div style={{ color: '#6b7280', fontSize: '14px' }}>sqm Factory</div>
                 </div>
                 <div style={{ backgroundColor: '#f9fafb', borderRadius: '12px', padding: '20px', textAlign: 'center' }}>
-                  <div style={{ fontFamily: 'Georgia, Times New Roman, serif', fontSize: '32px', fontWeight: 400, color: '#1a1a1a', marginBottom: '4px' }}>300+</div>
+                  <div style={{ fontFamily: 'Georgia, Times New Roman', serif, fontSize: '32px', fontWeight: 400, color: '#1a1a1a', marginBottom: '4px' }}>300+</div>
                   <div style={{ color: '#6b7280', fontSize: '14px' }}>Skilled Workers</div>
                 </div>
                 <div style={{ backgroundColor: '#f9fafb', borderRadius: '12px', padding: '20px', textAlign: 'center' }}>
