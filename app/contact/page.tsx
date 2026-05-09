@@ -73,12 +73,13 @@ export default function ContactPage() {
     <div className="min-h-screen bg-background">
       <Header />
       
-      <section className="pt-32 pb-16 bg-[#f5f3ef] via-[#16213e] to-[#0f3460]">
+      {/* 已修改：文字颜色按你的要求 */}
+      <section className="pt-32 pb-16 bg-[#f5f3ef]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-4xl md:text-5xl font-bold text-white mb-6">
+          <h1 className="text-4xl md:text-5xl font-bold mb-6" style={{ color: '#1a1a1a' }}>
             Get In Touch
           </h1>
-          <p className="text-lg text-white/70 max-w-2xl mx-auto">
+          <p className="text-lg max-w-2xl mx-auto" style={{ color: '#6b7280' }}>
             Ready to start your project? Fill out the form below and our team 
             will get back to you within 24 hours.
           </p>
