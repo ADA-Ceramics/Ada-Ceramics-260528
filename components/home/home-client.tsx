@@ -77,15 +77,17 @@ Details: ${formData.projectDetails}`
       }}>
         <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 24px' }}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: '72px' }}>
-            <Link href="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center' }}>
-  <Image
-    src="/Ada logo.webp"  // 和你 public 里的文件名完全对应
-    alt="ADA Ceramics Logo"
-    width={120}           // 控制 logo 宽度，可按需调整
-    height={40}           // 控制 logo 高度，可按需调整
-    style={{ objectFit: 'contain' }}
-  />
-</Link>
+            <Link href="/" style={{ textDecoration: 'none' }}>
+              <span style={{ 
+                fontFamily: 'Georgia, Times New Roman, serif',
+                fontSize: '20px', 
+                fontWeight: 400,
+                color: '#1a1a1a',
+                letterSpacing: '0.05em'
+              }}>
+                ADA CERAMICS
+              </span>
+            </Link>
 
             <nav style={{ display: 'flex', alignItems: 'center', gap: '40px' }} className="hidden lg:flex">
               <div
