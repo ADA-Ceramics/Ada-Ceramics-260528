@@ -20,12 +20,9 @@ export const metadata: Metadata = {
   },
 }
 
-// 手机端完美适配配置（不会缩小、不会横向滚动）
 export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
-  maximumScale: 1,
-  userScalable: false,
   themeColor: '#1a1a2e',
 }
 
@@ -36,8 +33,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${inter.variable} bg-background`}>
-      {/* 全局禁止横向溢出 + 统一字体 */}
-      <body className="font-sans antialiased overflow-x-hidden w-full">
+      <body className="font-sans antialiased">
         {children}
         {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>
