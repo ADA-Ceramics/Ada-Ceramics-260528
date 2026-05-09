@@ -54,7 +54,7 @@ export function Header() {
             </span>
           </Link>
 
-          {/* Desktop Navigation */}
+          {/* Desktop Navigation - 完全不动 */}
           <nav className="hidden lg:flex items-center gap-8">
             {navItems.map((item) => (
               <div key={item.name} className="relative group">
@@ -136,7 +136,7 @@ export function Header() {
             ))}
           </nav>
 
-          {/* CTA Button */}
+          {/* CTA Button - 完全不动 */}
           <div className="hidden lg:flex items-center gap-4">
             <Link
               href="/contact"
@@ -146,10 +146,10 @@ export function Header() {
             </Link>
           </div>
 
-          {/* Mobile Menu Button */}
+          {/* Mobile Menu Button - 只改这里，确保在右上角 */}
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="lg:hidden p-2"
+            className="lg:hidden p-2 ml-auto"
           >
             {isMobileMenuOpen ? (
               <X className={cn(
@@ -166,19 +166,19 @@ export function Header() {
         </div>
       </div>
 
-      {/* Mobile Menu */}
+      {/* Mobile Menu - 全屏下拉菜单，点击展开 */}
       <div className={cn(
-        "lg:hidden bg-white border-t border-border transition-all duration-300 overflow-hidden",
-        isMobileMenuOpen ? "max-h-[calc(100vh-80px)] opacity-100" : "max-h-0 opacity-0"
+        "lg:hidden fixed inset-x-0 top-20 bg-white shadow-lg z-40 transition-all duration-300",
+        isMobileMenuOpen ? "max-h-[90vh] opacity-100 visible" : "max-h-0 opacity-0 invisible"
       )}>
-        <nav className="px-4 py-4 space-y-1">
+        <nav className="px-6 py-6 space-y-3">
           {navItems.map((item) => (
             <div key={item.name}>
               {item.hasDropdown ? (
                 <div>
                   <button
                     onClick={() => setIsProductsOpen(!isProductsOpen)}
-                    className="flex items-center justify-between w-full px-4 py-3 text-foreground font-medium rounded-lg hover:bg-muted transition-colors"
+                    className="flex items-center justify-between w-full px-3 py-3.5 text-base font-medium rounded-md hover:bg-muted/50 transition-colors"
                   >
                     {item.name}
                     <ChevronDown className={cn(
@@ -187,16 +187,16 @@ export function Header() {
                     )} />
                   </button>
                   <div className={cn(
-                    "overflow-hidden transition-all duration-200",
+                    "overflow-hidden transition-all duration-200 bg-gray-50 rounded-md",
                     isProductsOpen ? "max-h-96" : "max-h-0"
                   )}>
-                    <div className="pl-4 py-2 space-y-1">
+                    <div className="p-2 space-y-1">
                       {Object.entries(CATEGORY_INFO).map(([slug, info]) => (
                         <Link
                           key={slug}
                           href={`/products/${slug}`}
                           onClick={() => setIsMobileMenuOpen(false)}
-                          className="block px-4 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted rounded-lg transition-colors"
+                          className="block px-4 py-2.5 text-sm rounded-md hover:bg-white hover:shadow-sm"
                         >
                           {info.name}
                         </Link>
@@ -204,7 +204,7 @@ export function Header() {
                       <Link
                         href="/products"
                         onClick={() => setIsMobileMenuOpen(false)}
-                        className="block px-4 py-2 text-sm font-medium text-primary"
+                        className="block px-4 py-2.5 text-sm font-medium text-primary"
                       >
                         View All Products
                       </Link>
@@ -216,8 +216,8 @@ export function Header() {
                   href={item.href}
                   onClick={() => setIsMobileMenuOpen(false)}
                   className={cn(
-                    "block px-4 py-3 font-medium rounded-lg hover:bg-muted transition-colors",
-                    pathname === item.href ? "text-primary bg-muted" : "text-foreground"
+                    "block px-3 py-3.5 text-base font-medium rounded-md hover:bg-muted/50 transition-colors",
+                    pathname === item.href ? "text-primary bg-muted/70" : "text-foreground"
                   )}
                 >
                   {item.name}
@@ -225,11 +225,11 @@ export function Header() {
               )}
             </div>
           ))}
-          <div className="pt-4 px-4">
+          <div className="pt-4 mt-2">
             <Link
               href="/contact"
               onClick={() => setIsMobileMenuOpen(false)}
-              className="block w-full bg-primary text-primary-foreground text-center px-5 py-3 rounded-lg font-medium hover:bg-primary/90 transition-colors"
+              className="block w-full bg-primary text-white text-center py-4 rounded-lg font-medium hover:bg-primary/90"
             >
               Get Quote
             </Link>
