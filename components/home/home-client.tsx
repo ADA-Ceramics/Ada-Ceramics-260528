@@ -128,7 +128,7 @@ Details: ${formData.projectDetails}`
                     }}>
                       {categories.map((category) => (
                         <Link
-                          key={category.id}
+                          key={category.slug}
                           href={`/products?category=${category.slug}`}
                           style={{
                             display: 'block',
@@ -367,7 +367,7 @@ Details: ${formData.projectDetails}`
             </p>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '32px' }} className="grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
             {categories.map((category) => (
               <Link key={category.slug} href={`/products?category=${category.slug}`} style={{ textDecoration: 'none', display: 'block' }}>
                 <div style={{ backgroundColor: '#ffffff', borderRadius: '16px', overflow: 'hidden', border: '1px solid #f3f4f6', transition: 'all 0.3s' }}>
@@ -406,7 +406,7 @@ Details: ${formData.projectDetails}`
             </p>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '20px', marginBottom: '60px' }} className="grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-16">
             <div style={{ backgroundColor: '#ffffff', borderRadius: '12px', padding: '28px 24px 32px 24px', border: '1px solid #e5e7eb' }}>
               <div style={{ width: '48px', height: '48px', backgroundColor: '#1f2937', borderRadius: '10px', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '24px' }}>
                 <Award style={{ width: '24px', height: '24px', color: '#ffffff' }} />
@@ -442,7 +442,7 @@ Details: ${formData.projectDetails}`
 
           <div style={{ borderTop: '1px solid #e5e7eb', marginBottom: '60px' }} />
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '24px' }} className="grid-cols-2 lg:grid-cols-4">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
             <div style={{ textAlign: 'center' }}>
               <div style={{ fontFamily: 'Georgia, Times New Roman, serif', fontSize: '56px', fontWeight: 400, color: '#1a1a1a', marginBottom: '8px', lineHeight: 1 }}>
                 20<span style={{ color: '#d97706', fontSize: '40px' }}>+</span>
@@ -463,7 +463,7 @@ Details: ${formData.projectDetails}`
             </div>
             <div style={{ textAlign: 'center' }}>
               <div style={{ fontFamily: 'Georgia, Times New Roman, serif', fontSize: '56px', fontWeight: 400, color: '#1a1a1a', marginBottom: '8px', lineHeight: 1 }}>
-                10M<span style={{ color: '#d9706', fontSize: '40px' }}>+</span>
+                10M<span style={{ color: '#d97706', fontSize: '40px' }}>+</span>
               </div>
               <div style={{ color: '#9ca3af', fontSize: '13px', letterSpacing: '0.05em', textTransform: 'uppercase' }}>PRODUCTS DELIVERED</div>
             </div>
@@ -474,7 +474,7 @@ Details: ${formData.projectDetails}`
       {/* Our Facility Section */}
       <section style={{ padding: '96px 0', backgroundColor: '#ffffff' }}>
         <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 24px' }}>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '64px', alignItems: 'center' }} className="grid-cols-1 lg:grid-cols-2">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
             <div>
               <p style={{ color: '#8b7355', fontSize: '14px', fontWeight: 600, marginBottom: '12px', letterSpacing: '0.05em', textTransform: 'uppercase' }}>Our Facility</p>
               <h2 style={{ fontFamily: 'Georgia, Times New Roman, serif', fontSize: '40px', fontWeight: 400, color: '#1a1a1a', marginBottom: '24px' }}>
@@ -484,7 +484,7 @@ Details: ${formData.projectDetails}`
                 Our 50,000 sqm facility combines traditional craftsmanship with modern technology, featuring 10+ production lines and a dedicated team of 300+ skilled workers.
               </p>
               
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '24px' }}>
+              <div className="grid grid-cols-2 gap-5">
                 <div style={{ backgroundColor: '#f9fafb', borderRadius: '12px', padding: '20px', textAlign: 'center' }}>
                   <div style={{ fontFamily: 'Georgia, Times New Roman, serif', fontSize: '32px', fontWeight: 400, color: '#1a1a1a', marginBottom: '4px' }}>50,000</div>
                   <div style={{ color: '#6b7280', fontSize: '14px' }}>sqm Factory</div>
@@ -505,7 +505,6 @@ Details: ${formData.projectDetails}`
             </div>
             
             <div style={{ aspectRatio: '4/3', borderRadius: '16px', overflow: 'hidden', position: 'relative', backgroundColor: '#f3f4f6' }}>
-              {/* 使用数据库中的产品图作为工厂展示 */}
               {categories[0]?.image ? (
                 <Image src={categories[0].image} alt="ADA CERAMICS Factory" fill style={{ objectFit: 'cover' }} />
               ) : (
@@ -536,7 +535,7 @@ Details: ${formData.projectDetails}`
             </p>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '20px', marginBottom: '48px' }} className="grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-12">
             <div style={{ backgroundColor: '#1f2937', borderRadius: '12px', padding: '32px 24px', textAlign: 'center', border: '1px solid #374151' }}>
               <div style={{ width: '72px', height: '72px', backgroundColor: '#ffffff', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 24px auto' }}>
                 <span style={{ fontSize: '18px', fontWeight: 700, color: '#1f2937', letterSpacing: '-0.02em' }}>FDA</span>
@@ -593,7 +592,7 @@ Details: ${formData.projectDetails}`
             </p>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '20px', marginBottom: '60px' }} className="grid-cols-1 md:grid-cols-2">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-16">
             <div style={{ backgroundColor: '#ffffff', borderRadius: '12px', padding: '28px', border: '1px solid #e5e7eb', display: 'flex', alignItems: 'flex-start', gap: '20px' }}>
               <div style={{ width: '48px', height: '48px', backgroundColor: '#f3f4f6', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
                 <Pen style={{ width: '20px', height: '20px', color: '#6b7280' }} />
@@ -635,7 +634,7 @@ Details: ${formData.projectDetails}`
             </div>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '60px', alignItems: 'start' }} className="grid-cols-1 lg:grid-cols-2">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
             <div>
               <h3 style={{ fontFamily: 'Georgia, Times New Roman, serif', fontSize: '28px', fontWeight: 400, color: '#1a1a1a', marginBottom: '16px' }}>
                 Our OEM/ODM Process
@@ -719,7 +718,7 @@ Details: ${formData.projectDetails}`
             </p>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: '380px 1fr', gap: '60px', alignItems: 'start' }} className="grid-cols-1 lg:grid-cols-2">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
             <div>
               <h3 style={{ fontFamily: 'Georgia, Times New Roman, serif', fontSize: '22px', fontWeight: 400, color: '#1a1a1a', marginBottom: '28px' }}>
                 Contact Information
@@ -772,7 +771,7 @@ Details: ${formData.projectDetails}`
 
             <div>
               <form onSubmit={handleSubmit}>
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginBottom: '20px' }}>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-5">
                   <div>
                     <label style={{ display: 'block', fontSize: '14px', fontWeight: 500, color: '#1a1a1a', marginBottom: '8px' }}>
                       Full Name <span style={{ color: '#ef4444' }}>*</span>
@@ -800,7 +799,7 @@ Details: ${formData.projectDetails}`
                   </div>
                 </div>
 
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginBottom: '20px' }}>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-5">
                   <div>
                     <label style={{ display: 'block', fontSize: '14px', fontWeight: 500, color: '#1a1a1a', marginBottom: '8px' }}>
                       Email Address <span style={{ color: '#ef4444' }}>*</span>
@@ -828,7 +827,7 @@ Details: ${formData.projectDetails}`
                   </div>
                 </div>
 
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginBottom: '20px' }}>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-5">
                   <div>
                     <label style={{ display: 'block', fontSize: '14px', fontWeight: 500, color: '#1a1a1a', marginBottom: '8px' }}>
                       Product Category <span style={{ color: '#ef4444' }}>*</span>
