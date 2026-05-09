@@ -54,7 +54,7 @@ export function Header() {
             </span>
           </Link>
 
-          {/* Desktop Navigation - 完全不动 */}
+          {/* Desktop Navigation - 只在 lg 及以上显示 */}
           <nav className="hidden lg:flex items-center gap-8">
             {navItems.map((item) => (
               <div key={item.name} className="relative group">
@@ -136,7 +136,7 @@ export function Header() {
             ))}
           </nav>
 
-          {/* CTA Button - 完全不动 */}
+          {/* CTA Button - 只在 lg 及以上显示 */}
           <div className="hidden lg:flex items-center gap-4">
             <Link
               href="/contact"
@@ -146,7 +146,7 @@ export function Header() {
             </Link>
           </div>
 
-          {/* Mobile Menu Button - 只改这里，确保在右上角 */}
+          {/* Mobile Menu Button - 只在 lg 以下显示 */}
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             className="lg:hidden p-2 ml-auto"
@@ -166,10 +166,10 @@ export function Header() {
         </div>
       </div>
 
-      {/* Mobile Menu - 全屏下拉菜单，点击展开 */}
+      {/* Mobile Menu - 全屏下拉菜单，只在 lg 以下显示 */}
       <div className={cn(
-        "lg:hidden fixed inset-x-0 top-20 bg-white shadow-lg z-40 transition-all duration-300",
-        isMobileMenuOpen ? "max-h-[90vh] opacity-100 visible" : "max-h-0 opacity-0 invisible"
+        "lg:hidden fixed inset-x-0 top-20 bg-white shadow-lg z-40 transition-all duration-300 overflow-hidden",
+        isMobileMenuOpen ? "max-h-[calc(100vh-80px)] opacity-100 visible" : "max-h-0 opacity-0 invisible"
       )}>
         <nav className="px-6 py-6 space-y-3">
           {navItems.map((item) => (
