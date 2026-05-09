@@ -398,7 +398,7 @@ Details: ${formData.projectDetails}`
             <p style={{ color: '#8b7355', fontSize: '13px', fontWeight: 500, marginBottom: '16px', letterSpacing: '0.1em', textTransform: 'uppercase' }}>
               WHY CHOOSE US
             </p>
-            <h2 style={{ fontFamily: 'Georgia, Times New Roman, serif', fontSize: '42px', fontWeight: 400, color: '#1a1a1a', marginBottom: '20px', lineHeight: 1.2 }}>
+            <h2 style={{ fontFamily: 'Georgia, Times New Roman, serif', fontSize: '56px', fontWeight: 400, color: '#1a1a1a', marginBottom: '20px', lineHeight: 1.2 }}>
               Your Trusted Ceramic Partner
             </h2>
             <p style={{ color: '#9ca3af', fontSize: '16px', maxWidth: '680px', margin: '0 auto', lineHeight: 1.7 }}>
@@ -528,7 +528,7 @@ Details: ${formData.projectDetails}`
           </div>
 
           <div style={{ textAlign: 'center', marginBottom: '56px' }}>
-            <h2 style={{ fontFamily: '"Times New Roman", Times, Georgia, serif', fontSize: '42px', fontWeight: 400, fontStyle: 'italic', color: '#ffffff', marginBottom: '20px', lineHeight: 1.2, letterSpacing: '0.01em' }}>
+            <h2 style={{ fontFamily: 'Georgia, Times New Roman, serif', fontSize: '56px', fontWeight: 400, fontStyle: 'italic', color: '#ffffff', marginBottom: '20px', lineHeight: 1.2, letterSpacing: '0.01em' }}>
               Certified Excellence
             </h2>
             <p style={{ color: '#9ca3af', fontSize: '17px', maxWidth: '700px', margin: '0 auto', lineHeight: 1.7 }}>
@@ -585,7 +585,7 @@ Details: ${formData.projectDetails}`
             <p style={{ color: '#6b7280', fontSize: '12px', fontWeight: 500, marginBottom: '16px', letterSpacing: '0.15em', textTransform: 'uppercase' }}>
               OEM / ODM SERVICES
             </p>
-            <h2 style={{ fontFamily: 'Georgia, Times New Roman, serif', fontSize: '38px', fontWeight: 400, color: '#1a1a1a', marginBottom: '16px', lineHeight: 1.2 }}>
+            <h2 style={{ fontFamily: 'Georgia, Times New Roman, serif', fontSize: '56px', fontWeight: 400, color: '#1a1a1a', marginBottom: '16px', lineHeight: 1.2 }}>
               Your Brand, Our Expertise
             </h2>
             <p style={{ color: '#9ca3af', fontSize: '15px', maxWidth: '580px', margin: '0 auto', lineHeight: 1.7 }}>
