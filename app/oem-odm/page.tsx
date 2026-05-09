@@ -269,7 +269,7 @@ export default function OemOdmPage() {
                 </div>
                 <div className="flex items-center justify-between py-4 border-b border-white/10">
                   <span className="text-white/70">Production Lead Time</span>
-                  <span className="text-white font-semibold">15-45 days</span>
+                  <span className="text-white font-semibold">35-45 days</span>
                 </div>
                 <div className="flex items-center justify-between py-4 border-b border-white/10">
                   <span className="text-white/70">Design Revisions</span>
