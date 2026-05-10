@@ -23,34 +23,31 @@ export default function ContactPage() {
   // 已修复：一定会触发邮件 + 一定会跳转 WhatsApp
   // ==============================================
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsSubmitting(true);
+  e.preventDefault();
+  setIsSubmitting(true);
 
-    try {
-      // 1. 先发送邮件（核心修复）
-      const emailRes = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      });
+  try {
+    // 第一步：先发送邮件（确保执行完再跳转）
+    await fetch("/api/contact", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(formData),
+    });
 
-      const result = await emailRes.json();
-      console.log("✅ 邮件发送结果：", result);
+    // 第二步：邮件发送成功后，再跳转到 WhatsApp
+    setSubmitted(true);
+    const message = encodeURIComponent(
+      `New Inquiry\nName: ${formData.fullName}\nCompany: ${formData.company}\nEmail: ${formData.email}\nPhone: ${formData.phone}\nCategory: ${formData.category}\nQuantity: ${formData.quantity}\nDetails: ${formData.details}`
+    );
+    window.open(`https://wa.me/8615919512131?text=${message}`, "_blank");
 
-      // 2. 成功后再跳转 WhatsApp
-      setSubmitted(true);
-      const message = encodeURIComponent(
-        `New Inquiry\nName: ${formData.fullName}\nCompany: ${formData.company}\nEmail: ${formData.email}\nPhone: ${formData.phone}\nCategory: ${formData.category}\nQuantity: ${formData.quantity}\nDetails: ${formData.details}`
-      );
-      window.open(`https://wa.me/8615919512131?text=${message}`, "_blank");
-
-    } catch (err) {
-      console.error("❌ 提交失败：", err);
-      alert("发送失败，请稍后重试");
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
+  } catch (err) {
+    console.error("❌ 发送失败：", err);
+    alert("发送失败，请稍后重试");
+  } finally {
+    setIsSubmitting(false);
+  }
+};
 
   if (submitted) {
     return (
