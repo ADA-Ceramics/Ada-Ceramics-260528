@@ -19,39 +19,37 @@ export default function ContactPage() {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitted, setSubmitted] = useState(false)
 
-  const handleSubmit = async (e: React.FormEvent) => {
+ const handleSubmit = async (e: React.FormEvent) => {
   e.preventDefault();
   setIsSubmitting(true);
 
   try {
-    // 1. 调用后端接口发送邮件
-    const response = await fetch('/api/contact', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+    // 先发送邮件到你的邮箱
+    const res = await fetch("/api/contact", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify(formData),
     });
 
-    if (!response.ok) throw new Error('Failed to send inquiry');
+    const result = await res.json();
+    console.log("API 返回结果：", result);
 
-    // 2. 邮件发送成功后，跳转到 WhatsApp
-    const whatsappText = encodeURIComponent(`Hi, I'm ${formData.fullName} from ${formData.company}.
-Email: ${formData.email}
-Phone: ${formData.phone}
-Product Category: ${formData.category}
-Quantity: ${formData.quantity}
-Details: ${formData.details}`);
+    if (!res.ok) throw new Error("发送询盘失败");
 
-    const whatsappUrl = `https://api.whatsapp.com/send?phone=+8615919512131&text=${whatsappText}`;
-    window.location.href = whatsappUrl;
+    // 邮件发送成功，再跳转到 WhatsApp
+    setSubmitted(true);
+    const text = encodeURIComponent(
+      `New Inquiry:\nName: ${formData.fullName}\nCompany: ${formData.company}\nEmail: ${formData.email}\nPhone: ${formData.phone}\nCategory: ${formData.category}\nQuantity: ${formData.quantity}\nDetails: ${formData.details}`
+    );
+    window.open(`https://wa.me/8615919512131?text=${text}`, "_blank");
 
-  } catch (error) {
-    console.error(error);
-    alert('Failed to send inquiry, please try again.');
+  } catch (err) {
+    console.error("提交错误：", err);
+    alert("发送失败，请稍后再试");
   } finally {
     setIsSubmitting(false);
   }
 };
-
   if (submitted) {
     return (
       <div className="min-h-screen bg-background">
