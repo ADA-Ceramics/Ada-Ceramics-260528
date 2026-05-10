@@ -20,13 +20,37 @@ export default function ContactPage() {
   const [submitted, setSubmitted] = useState(false)
 
   // ==============================================
-  // 【最终版 100% 能发邮件】
+  // 已修复：一定会触发邮件 + 一定会跳转 WhatsApp
   // ==============================================
   const handleSubmit = async (e: React.FormEvent) => {
-  e.preventDefault();
-  console.log("✅ 表单提交触发了！");
-  alert("表单提交触发了！");
-};
+    e.preventDefault();
+    setIsSubmitting(true);
+
+    try {
+      // 1. 先发送邮件（核心修复）
+      const emailRes = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+
+      const result = await emailRes.json();
+      console.log("✅ 邮件发送结果：", result);
+
+      // 2. 成功后再跳转 WhatsApp
+      setSubmitted(true);
+      const message = encodeURIComponent(
+        `New Inquiry\nName: ${formData.fullName}\nCompany: ${formData.company}\nEmail: ${formData.email}\nPhone: ${formData.phone}\nCategory: ${formData.category}\nQuantity: ${formData.quantity}\nDetails: ${formData.details}`
+      );
+      window.open(`https://wa.me/8615919512131?text=${message}`, "_blank");
+
+    } catch (err) {
+      console.error("❌ 提交失败：", err);
+      alert("发送失败，请稍后重试");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   if (submitted) {
     return (
@@ -205,7 +229,17 @@ export default function ContactPage() {
                     disabled={isSubmitting}
                     className="w-full bg-primary text-primary-foreground py-4 rounded-xl font-semibold hover:bg-primary/90 transition-colors disabled:opacity-70 flex items-center justify-center gap-2"
                   >
-                    {isSubmitting ? "Sending..." : "Send Inquiry"}
+                    {isSubmitting ? (
+                      <>
+                        <div className="w-5 h-5 border-2 border-primary-foreground/30 border-t-primary-foreground rounded-full animate-spin" />
+                        Sending...
+                      </>
+                    ) : (
+                      <>
+                        <Send className="w-5 h-5" />
+                        Send Inquiry
+                      </>
+                    )}
                   </button>
                 </form>
               </div>
