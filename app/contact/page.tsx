@@ -20,14 +20,37 @@ export default function ContactPage() {
   const [submitted, setSubmitted] = useState(false)
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setIsSubmitting(true)
-    
-    await new Promise((resolve) => setTimeout(resolve, 1000))
-    
-    setIsSubmitting(false)
-    setSubmitted(true)
+  e.preventDefault();
+  setIsSubmitting(true);
+
+  try {
+    // 1. 调用后端接口发送邮件
+    const response = await fetch('/api/contact', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(formData),
+    });
+
+    if (!response.ok) throw new Error('Failed to send inquiry');
+
+    // 2. 邮件发送成功后，跳转到 WhatsApp
+    const whatsappText = encodeURIComponent(`Hi, I'm ${formData.fullName} from ${formData.company}.
+Email: ${formData.email}
+Phone: ${formData.phone}
+Product Category: ${formData.category}
+Quantity: ${formData.quantity}
+Details: ${formData.details}`);
+
+    const whatsappUrl = `https://api.whatsapp.com/send?phone=+8615919512131&text=${whatsappText}`;
+    window.location.href = whatsappUrl;
+
+  } catch (error) {
+    console.error(error);
+    alert('Failed to send inquiry, please try again.');
+  } finally {
+    setIsSubmitting(false);
   }
+};
 
   if (submitted) {
     return (
