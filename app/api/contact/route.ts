@@ -1,6 +1,5 @@
 import { NextResponse } from 'next/server';
 
-// 👇 必须加这两行，强制用 Node.js，不能用 Edge
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 
@@ -8,8 +7,6 @@ export async function POST(request: Request) {
   try {
     const body = await request.json();
     const { fullName, company, email, phone, category, quantity, details } = body;
-
-    console.log("📩 收到表单数据：", body);
 
     const res = await fetch('https://api.resend.com/emails', {
       method: 'POST',
@@ -35,13 +32,13 @@ Details: ${details}
     });
 
     const data = await res.json();
-    console.log("✅ Resend 完整响应：", data);
+    console.log("✅ Resend 响应：", data);
 
     if (!res.ok) throw new Error(data.error || "发送失败");
-    return NextResponse.json({ success: true, data });
+    return NextResponse.json({ success: true });
 
   } catch (error) {
-    console.error("❌ 发送失败：", error);
+    console.error("❌ 错误：", error);
     return NextResponse.json({ success: false, error: "Server error" }, { status: 500 });
   }
 }
