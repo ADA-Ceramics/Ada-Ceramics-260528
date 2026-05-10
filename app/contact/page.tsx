@@ -19,35 +19,31 @@ export default function ContactPage() {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitted, setSubmitted] = useState(false)
 
-  // ==============================================
-  // 已修复：一定会触发邮件 + 一定会跳转 WhatsApp
-  // ==============================================
+  // 纯发送邮件，无任何跳转
   const handleSubmit = async (e: React.FormEvent) => {
-  e.preventDefault();
-  setIsSubmitting(true);
+    e.preventDefault();
+    setIsSubmitting(true);
 
-  try {
-    // 第一步：先发送邮件（确保执行完再跳转）
-    await fetch("/api/contact", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(formData),
-    });
+    try {
+      // 只发邮件
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
 
-    // 第二步：邮件发送成功后，再跳转到 WhatsApp
-    setSubmitted(true);
-    const message = encodeURIComponent(
-      `New Inquiry\nName: ${formData.fullName}\nCompany: ${formData.company}\nEmail: ${formData.email}\nPhone: ${formData.phone}\nCategory: ${formData.category}\nQuantity: ${formData.quantity}\nDetails: ${formData.details}`
-    );
-    window.open(`https://wa.me/8615919512131?text=${message}`, "_blank");
-
-  } catch (err) {
-    console.error("❌ 发送失败：", err);
-    alert("发送失败，请稍后重试");
-  } finally {
-    setIsSubmitting(false);
-  }
-};
+      const result = await res.json();
+      console.log("✅ 发送结果：", result);
+      
+      // 成功
+      setSubmitted(true);
+    } catch (err) {
+      console.error("❌ 错误：", err);
+      alert("发送失败，请稍后重试");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   if (submitted) {
     return (
@@ -59,28 +55,11 @@ export default function ContactPage() {
               <Send className="w-10 h-10 text-green-500" />
             </div>
             <h1 className="text-3xl font-bold text-foreground mb-4">
-              Thank You for Your Inquiry!
+              Message Sent Successfully!
             </h1>
             <p className="text-muted-foreground mb-8">
-              We have received your message and will get back to you within 24 hours. 
+              Thank you for contacting us. We will reply you soon.
             </p>
-            <button
-              onClick={() => {
-                setSubmitted(false)
-                setFormData({
-                  fullName: "",
-                  company: "",
-                  email: "",
-                  phone: "",
-                  category: "",
-                  quantity: "",
-                  details: "",
-                })
-              }}
-              className="bg-primary text-primary-foreground px-6 py-3 rounded-xl font-semibold hover:bg-primary/90 transition-colors"
-            >
-              Send Another Inquiry
-            </button>
           </div>
         </div>
         <Footer />
@@ -234,7 +213,7 @@ export default function ContactPage() {
                     ) : (
                       <>
                         <Send className="w-5 h-5" />
-                        Send Inquiry
+                        Send Message
                       </>
                     )}
                   </button>
