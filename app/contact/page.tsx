@@ -19,12 +19,12 @@ export default function ContactPage() {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitted, setSubmitted] = useState(false)
 
- const handleSubmit = async (e: React.FormEvent) => {
+const handleSubmit = async (e: React.FormEvent) => {
   e.preventDefault();
   setIsSubmitting(true);
 
   try {
-    // 先发送邮件到你的邮箱
+    // 第一步：先发邮件（必须执行）
     const res = await fetch("/api/contact", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -32,11 +32,9 @@ export default function ContactPage() {
     });
 
     const result = await res.json();
-    console.log("API 返回结果：", result);
+    console.log("邮件发送结果：", result);
 
-    if (!res.ok) throw new Error("发送询盘失败");
-
-    // 邮件发送成功，再跳转到 WhatsApp
+    // 第二步：邮件成功后，再跳 WhatsApp
     setSubmitted(true);
     const text = encodeURIComponent(
       `New Inquiry:\nName: ${formData.fullName}\nCompany: ${formData.company}\nEmail: ${formData.email}\nPhone: ${formData.phone}\nCategory: ${formData.category}\nQuantity: ${formData.quantity}\nDetails: ${formData.details}`
@@ -44,7 +42,7 @@ export default function ContactPage() {
     window.open(`https://wa.me/8615919512131?text=${text}`, "_blank");
 
   } catch (err) {
-    console.error("提交错误：", err);
+    console.error("提交出错：", err);
     alert("发送失败，请稍后再试");
   } finally {
     setIsSubmitting(false);
