@@ -24,27 +24,8 @@ export default function ContactPage() {
   // ==============================================
   const handleSubmit = async (e: React.FormEvent) => {
   e.preventDefault();
-  setIsSubmitting(true);
-
-  try {
-    // 直接发送邮件
-    await fetch("/api/contact", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(formData),
-    });
-
-    // 邮件发送成功，再跳 WhatsApp
-    setSubmitted(true);
-    const text = encodeURIComponent(`Hi, I'm ${formData.fullName}`);
-    window.open(`https://wa.me/8615919512131?text=${text}`, "_blank");
-
-  } catch (err) {
-    console.error("Error:", err);
-    alert("发送失败");
-  } finally {
-    setIsSubmitting(false);
-  }
+  console.log("✅ 表单提交触发了！");
+  alert("表单提交触发了！");
 };
 
   if (submitted) {
