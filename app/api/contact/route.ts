@@ -12,7 +12,7 @@ export async function POST(request: Request) {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        from: 'Contact Form <contact@adaceramics.com>', // 后续在Resend验证域名后修改
+        from: 'Contact Form <onboarding@resend.dev>',
         to: [process.env.RECEIVER_EMAIL],
         subject: `New Inquiry from ${fullName}`,
         text: `
@@ -28,10 +28,15 @@ Details: ${details}
       })
     });
 
-    if (!res.ok) throw new Error('Failed to send email');
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || 'Failed to send email');
+
     return NextResponse.json({ success: true });
   } catch (error) {
-    console.error('Email error:', error);
-    return NextResponse.json({ success: false, error: (error as Error).message }, { status: 500 });
+    console.error('Email send error:', error);
+    return NextResponse.json(
+      { success: false, error: (error as Error).message },
+      { status: 500 }
+    );
   }
 }
