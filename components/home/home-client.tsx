@@ -38,12 +38,12 @@ interface HomeClientProps {
 export function HomeClient({ categories }: HomeClientProps) {
   const [formData, setFormData] = useState({
     fullName: "",
-    companyName: "",
+    company: "",
     email: "",
     phone: "",
-    productCategory: "",
-    estimatedQuantity: "",
-    projectDetails: "",
+    category: "",
+    quantity: "",
+    details: "",
   })
   const [isProductsOpen, setIsProductsOpen] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
@@ -51,7 +51,6 @@ export function HomeClient({ categories }: HomeClientProps) {
   const handleSubmit = async (e: React.FormEvent) => {
   e.preventDefault();
 
-  // 第一步：先发询盘到你邮箱（后台静默发送）
   try {
     await fetch("/api/contact", {
       method: "POST",
@@ -61,17 +60,15 @@ export function HomeClient({ categories }: HomeClientProps) {
       body: JSON.stringify(formData),
     });
   } catch (error) {
-    // 邮件发送失败也不卡住，照样跳WhatsApp
     console.log("邮件发送失败：", error);
   }
 
-  // 第二步：再跳转到WhatsApp
-  const whatsappMessage = `Hi, I'm ${formData.fullName} from ${formData.companyName}. 
+  const whatsappMessage = `Hi, I'm ${formData.fullName} from ${formData.company}. 
 Email: ${formData.email}
 Phone: ${formData.phone}
-Product Category: ${formData.productCategory}
-Quantity: ${formData.estimatedQuantity}
-Details: ${formData.projectDetails}`;
+Product Category: ${formData.category}
+Quantity: ${formData.quantity}
+Details: ${formData.details}`;
     
   window.open(
     `https://wa.me/8615919512131?text=${encodeURIComponent(whatsappMessage)}`,
@@ -81,7 +78,6 @@ Details: ${formData.projectDetails}`;
 
   return (
     <div style={{ minHeight: '100vh', backgroundColor: '#ffffff' }}>
-      {/* Header */}
       <header style={{ 
         position: 'fixed', 
         top: 0, 
@@ -222,7 +218,6 @@ Details: ${formData.projectDetails}`;
         )}
       </header>
 
-      {/* Hero Section */}
       <section style={{ 
         position: 'relative',
         minHeight: '100vh',
@@ -233,7 +228,6 @@ Details: ${formData.projectDetails}`;
         backgroundColor: '#f5f3ef',
         overflow: 'hidden',
       }}>
-       {/* 背景 - 使用 public 目录下的 bg.webp */}
 <div style={{ position: 'absolute', inset: 0, backgroundColor: '#f5f3ef' }}>
   <Image
     src="/bg.webp"
@@ -374,7 +368,6 @@ Details: ${formData.projectDetails}`;
         </div>
       </section>
 
-      {/* Our Collections Section - 从数据库读取图片 */}
       <section style={{ padding: '96px 0', backgroundColor: '#ffffff' }}>
         <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 24px' }}>
           <div style={{ textAlign: 'center', marginBottom: '64px' }}>
@@ -411,7 +404,6 @@ Details: ${formData.projectDetails}`;
         </div>
       </section>
 
-      {/* Why Choose Us Section */}
       <section style={{ padding: '80px 0 60px 0', backgroundColor: '#f9fafb' }}>
         <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 24px' }}>
           <div style={{ textAlign: 'center', marginBottom: '48px' }}>
@@ -491,7 +483,6 @@ Details: ${formData.projectDetails}`;
         </div>
       </section>
 
-      {/* Our Facility Section */}
       <section style={{ padding: '96px 0', backgroundColor: '#ffffff' }}>
         <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 24px' }}>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
@@ -537,7 +528,6 @@ Details: ${formData.projectDetails}`;
         </div>
       </section>
 
-      {/* Certified Excellence Section */}
       <section style={{ padding: '80px 0 60px 0', background: 'linear-gradient(180deg, #6b7280 0%, #1f2937 15%, #111827 100%)' }}>
         <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 24px' }}>
           <div style={{ textAlign: 'center', marginBottom: '24px' }}>
@@ -597,7 +587,6 @@ Details: ${formData.projectDetails}`;
         </div>
       </section>
 
-      {/* OEM/ODM Services Section */}
       <section style={{ padding: '80px 0', backgroundColor: '#ffffff' }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 24px' }}>
           <div style={{ textAlign: 'center', marginBottom: '48px' }}>
@@ -723,7 +712,6 @@ Details: ${formData.projectDetails}`;
         </div>
       </section>
 
-      {/* Request a Quote Section */}
       <section id="contact" style={{ padding: '80px 0', backgroundColor: '#ffffff' }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 24px' }}>
           <div style={{ textAlign: 'center', marginBottom: '48px' }}>
@@ -811,8 +799,8 @@ Details: ${formData.projectDetails}`;
                     </label>
                     <input
                       type="text"
-                      value={formData.companyName}
-                      onChange={(e) => setFormData({ ...formData, companyName: e.target.value })}
+                      value={formData.company}
+                      onChange={(e) => setFormData({ ...formData, company: e.target.value })}
                       style={{ width: '100%', padding: '12px 16px', border: '1px solid #e5e7eb', borderRadius: '6px', fontSize: '14px', color: '#1a1a1a', backgroundColor: '#ffffff' }}
                       placeholder="Your Company Ltd."
                     />
@@ -853,8 +841,8 @@ Details: ${formData.projectDetails}`;
                       Product Category <span style={{ color: '#ef4444' }}>*</span>
                     </label>
                     <select
-                      value={formData.productCategory}
-                      onChange={(e) => setFormData({ ...formData, productCategory: e.target.value })}
+                      value={formData.category}
+                      onChange={(e) => setFormData({ ...formData, category: e.target.value })}
                       style={{ width: '100%', padding: '12px 16px', border: '1px solid #e5e7eb', borderRadius: '6px', fontSize: '14px', color: '#6b7280', backgroundColor: '#ffffff', cursor: 'pointer' }}
                     >
                       <option value="">Select product category</option>
@@ -870,8 +858,8 @@ Details: ${formData.projectDetails}`;
                     </label>
                     <input
                       type="text"
-                      value={formData.estimatedQuantity}
-                      onChange={(e) => setFormData({ ...formData, estimatedQuantity: e.target.value })}
+                      value={formData.quantity}
+                      onChange={(e) => setFormData({ ...formData, quantity: e.target.value })}
                       style={{ width: '100%', padding: '12px 16px', border: '1px solid #e5e7eb', borderRadius: '6px', fontSize: '14px', color: '#1a1a1a', backgroundColor: '#ffffff' }}
                       placeholder="e.g., 5,000 pieces"
                     />
@@ -884,8 +872,8 @@ Details: ${formData.projectDetails}`;
                   </label>
                   <textarea
                     rows={4}
-                    value={formData.projectDetails}
-                    onChange={(e) => setFormData({ ...formData, projectDetails: e.target.value })}
+                    value={formData.details}
+                    onChange={(e) => setFormData({ ...formData, details: e.target.value })}
                     style={{ width: '100%', padding: '12px 16px', border: '1px solid #e5e7eb', borderRadius: '6px', fontSize: '14px', color: '#1a1a1a', backgroundColor: '#ffffff', resize: 'vertical' }}
                     placeholder="Please describe your requirements, including product specifications, customization needs, target price, etc."
                   />
