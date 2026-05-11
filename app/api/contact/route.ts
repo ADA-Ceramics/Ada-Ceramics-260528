@@ -26,7 +26,7 @@ export async function POST(req: Request) {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        from: 'website@adaceramics.com',
+        from: 'info@adaceramics.com',
         to: 'sukichoi@adaceramics.com',
         subject: `New Inquiry from ${fullName}`,
         html: `
