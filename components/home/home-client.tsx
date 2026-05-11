@@ -48,19 +48,36 @@ export function HomeClient({ categories }: HomeClientProps) {
   const [isProductsOpen, setIsProductsOpen] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    const whatsappMessage = `Hi, I'm ${formData.fullName} from ${formData.companyName}. 
+  const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
+
+  // 第一步：先发询盘到你邮箱（后台静默发送）
+  try {
+    await fetch("/api/contact", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
+    });
+  } catch (error) {
+    // 邮件发送失败也不卡住，照样跳WhatsApp
+    console.log("邮件发送失败：", error);
+  }
+
+  // 第二步：再跳转到WhatsApp
+  const whatsappMessage = `Hi, I'm ${formData.fullName} from ${formData.companyName}. 
 Email: ${formData.email}
 Phone: ${formData.phone}
 Product Category: ${formData.productCategory}
 Quantity: ${formData.estimatedQuantity}
-Details: ${formData.projectDetails}`
-    window.open(
-      `https://wa.me/8615919512131?text=${encodeURIComponent(whatsappMessage)}`,
-      "_blank"
-    )
-  }
+Details: ${formData.projectDetails}`;
+    
+  window.open(
+    `https://wa.me/8615919512131?text=${encodeURIComponent(whatsappMessage)}`,
+    "_blank"
+  );
+};
 
   return (
     <div style={{ minHeight: '100vh', backgroundColor: '#ffffff' }}>
