@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 
 export async function POST(req) {
   try {
-    // 这里必须和前端表单完全一致！！
+    // 这里的变量名，必须和前端 formData 里的字段名完全一致！
     const {
       fullName,
       company,
@@ -20,7 +20,6 @@ export async function POST(req) {
       return NextResponse.json({ success: false, error: "API key missing" });
     }
 
-    // 发送邮件到你的企业邮箱
     const res = await fetch('https://api.resend.com/emails', {
       method: 'POST',
       headers: {
@@ -29,18 +28,18 @@ export async function POST(req) {
       },
       body: JSON.stringify({
         from: 'website@adaceramics.com',
-        to: 'sukichoi@adaceramics.com', // 你的企业邮箱
-        subject: `【新询盘】${fullName} - ${company}`,
+        to: 'sukichoi@adaceramics.com',
+        subject: `【新询盘】${fullName} - ${company || '未填写公司'}`,
         html: `
-          <div style="font-size:16px; line-height:1.8;">
+          <div style="font-family: Arial, sans-serif; line-height: 1.8; font-size: 16px;">
             <p><strong>客户姓名：</strong>${fullName}</p>
-            <p><strong>公司名称：</strong>${company}</p>
+            <p><strong>公司名称：</strong>${company || '未填写'}</p>
             <p><strong>邮箱：</strong>${email}</p>
             <p><strong>电话/WhatsApp：</strong>${phone || '未填写'}</p>
-            <p><strong>产品类别：</strong>${category}</p>
+            <p><strong>产品类别：</strong>${category || '未填写'}</p>
             <p><strong>预计数量：</strong>${quantity || '未填写'}</p>
             <p><strong>项目详情：</strong></p>
-            <p>${details}</p>
+            <p>${details || '未填写'}</p>
           </div>
         `,
       }),
