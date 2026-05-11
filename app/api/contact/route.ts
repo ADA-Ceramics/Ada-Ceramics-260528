@@ -1,12 +1,8 @@
 import { NextResponse } from 'next/server';
 
-export const runtime = 'nodejs';
-export const dynamic = 'force-dynamic';
-
-export async function POST(request: Request) {
+export async function POST(req) {
   try {
-    const body = await request.json();
-    const { fullName, company, email, phone, category, quantity, details } = body;
+    const { name, email, phone, message } = await req.json();
 
     const res = await fetch('https://api.resend.com/emails', {
       method: 'POST',
@@ -15,30 +11,25 @@ export async function POST(request: Request) {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        from: 'Contact Form <onboarding@resend.dev>',
-        to: ['sukichoi@adaceramics.com'],
-        subject: `New Inquiry from ${fullName}`,
-        text: `
-Name: ${fullName}
-Company: ${company}
-Email: ${email}
-Phone: ${phone}
-Category: ${category}
-Quantity: ${quantity}
-Details: ${details}
-        `,
-        reply_to: email
+        from: 'website@adaceramics.com',
+        to: 'sukichoi@adaceramics.com',
+        subject: '新网站询盘 - ADA Ceramics',
+        html: `
+          <p>客户姓名：${name}</p>
+          <p>客户邮箱：${email}</p>
+          <p>电话：${phone || '无'}</p>
+          <p>留言：${message}</p>
+        `
       })
     });
 
     const data = await res.json();
-    console.log("✅ Resend 响应：", data);
-
-    if (!res.ok) throw new Error(data.error || "发送失败");
-    return NextResponse.json({ success: true });
-
-  } catch (error) {
-    console.error("❌ 错误：", error);
-    return NextResponse.json({ success: false, error: "Server error" }, { status: 500 });
+    if (data.id) {
+      return NextResponse.json({ success: true });
+    } else {
+      return NextResponse.json({ success: false });
+    }
+  } catch (err) {
+    return NextResponse.json({ success: false, error: err.message });
   }
 }
