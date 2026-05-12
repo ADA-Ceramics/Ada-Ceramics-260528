@@ -6,7 +6,7 @@ import { companyInfo } from "@/lib/data"
 
 export const metadata = {
   title: "Our Factory | ADA CERAMICS - Premium Ceramic Manufacturer",
-  description: "Explore ADA CERAMICS' 50,000 sqm state-of-the-art ceramic manufacturing facility with 10+ production lines and 300+ skilled workers.",
+  description: "Explore ADA CERAMICS' 30,000 sqm state-of-the-art ceramic manufacturing facility with 8+ production lines and 200+ skilled workers.",
 }
 
 export default function FactoryPage() {
