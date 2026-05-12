@@ -3,6 +3,7 @@ import { ArrowRight, Award, Globe, Heart, Target, Users, Zap } from "lucide-reac
 import { Header } from "@/components/layout/header"
 import { Footer } from "@/components/layout/footer"
 import { companyInfo, certifications } from "@/lib/data"
+import Image from "next/image"
 
 export const metadata = {
   title: "About Us | ADA CERAMICS - Premium Ceramic Manufacturer",
@@ -96,10 +97,13 @@ export default function AboutPage() {
               </div>
             </div>
             <div className="relative">
-              <div className="aspect-[4/3] bg-gradient-to-br from-muted to-muted/50 rounded-2xl overflow-hidden">
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <Users className="w-32 h-32 text-primary/20" />
-                </div>
+              <div className="aspect-[4/3] rounded-2xl overflow-hidden">
+                <Image 
+                  src="/factory-building.webp" 
+                  alt="ADA CERAMICS Factory" 
+                  fill 
+                  style={{ objectFit: "cover" }} 
+                />
               </div>
               <div className="absolute -bottom-6 -left-6 bg-primary text-primary-foreground rounded-xl p-6 shadow-xl">
                 <p className="text-4xl font-bold">{companyInfo.stats.yearsExperience}</p>
