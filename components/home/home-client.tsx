@@ -517,7 +517,7 @@ Details: ${formData.details}`;
             
             <div style={{ aspectRatio: '4/3', borderRadius: '16px', overflow: 'hidden', position: 'relative', backgroundColor: '#f3f4f6' }}>
               {categories[0]?.image ? (
-                <Image src="/images/factory-building.webp" alt="ADA CERAMICS Factory" fill style={{ objectFit: 'cover' }} />
+                <Image src="/factory-building.webp" alt="ADA CERAMICS Factory" fill style={{ objectFit: 'cover' }} />
               ) : (
                 <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#9ca3af' }}>
                   <Package style={{ width: '64px', height: '64px' }} />
