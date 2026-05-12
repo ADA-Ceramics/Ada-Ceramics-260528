@@ -99,7 +99,7 @@ export default function AboutPage() {
             <div className="relative">
               <div className="aspect-[4/3] rounded-2xl overflow-hidden">
                 <Image 
-                  src="/factory-building.webp" 
+                  src="/factory-monitoring-system.webp" 
                   alt="ADA CERAMICS Factory" 
                   fill 
                   style={{ objectFit: "cover" }} 
