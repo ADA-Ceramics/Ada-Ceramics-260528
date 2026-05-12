@@ -492,20 +492,20 @@ Details: ${formData.details}`;
                 State-of-the-Art Manufacturing
               </h2>
               <p style={{ color: '#6b7280', fontSize: '16px', marginBottom: '32px', lineHeight: 1.7 }}>
-                Our 50,000 sqm facility combines traditional craftsmanship with modern technology, featuring 10+ production lines and a dedicated team of 300+ skilled workers.
+                Our 30,000 sqm facility combines traditional craftsmanship with modern technology, featuring 8+ production lines and a dedicated team of 200+ skilled workers.
               </p>
               
               <div className="grid grid-cols-2 gap-5">
                 <div style={{ backgroundColor: '#f9fafb', borderRadius: '12px', padding: '20px', textAlign: 'center' }}>
-                  <div style={{ fontFamily: 'Georgia, Times New Roman, serif', fontSize: '32px', fontWeight: 400, color: '#1a1a1a', marginBottom: '4px' }}>50,000</div>
+                  <div style={{ fontFamily: 'Georgia, Times New Roman, serif', fontSize: '32px', fontWeight: 400, color: '#1a1a1a', marginBottom: '4px' }}>30,000</div>
                   <div style={{ color: '#6b7280', fontSize: '14px' }}>sqm Factory</div>
                 </div>
                 <div style={{ backgroundColor: '#f9fafb', borderRadius: '12px', padding: '20px', textAlign: 'center' }}>
-                  <div style={{ fontFamily: 'Georgia, Times New Roman, serif', fontSize: '32px', fontWeight: 400, color: '#1a1a1a', marginBottom: '4px' }}>300+</div>
+                  <div style={{ fontFamily: 'Georgia, Times New Roman, serif', fontSize: '32px', fontWeight: 400, color: '#1a1a1a', marginBottom: '4px' }}>200+</div>
                   <div style={{ color: '#6b7280', fontSize: '14px' }}>Skilled Workers</div>
                 </div>
                 <div style={{ backgroundColor: '#f9fafb', borderRadius: '12px', padding: '20px', textAlign: 'center' }}>
-                  <div style={{ fontFamily: 'Georgia, Times New Roman, serif', fontSize: '32px', fontWeight: 400, color: '#1a1a1a', marginBottom: '4px' }}>10+</div>
+                  <div style={{ fontFamily: 'Georgia, Times New Roman, serif', fontSize: '32px', fontWeight: 400, color: '#1a1a1a', marginBottom: '4px' }}>8+</div>
                   <div style={{ color: '#6b7280', fontSize: '14px' }}>Production Lines</div>
                 </div>
                 <div style={{ backgroundColor: '#f9fafb', borderRadius: '12px', padding: '20px', textAlign: 'center' }}>
@@ -517,7 +517,7 @@ Details: ${formData.details}`;
             
             <div style={{ aspectRatio: '4/3', borderRadius: '16px', overflow: 'hidden', position: 'relative', backgroundColor: '#f3f4f6' }}>
               {categories[0]?.image ? (
-                <Image src={categories[0].image} alt="ADA CERAMICS Factory" fill style={{ objectFit: 'cover' }} />
+                <Image src="/images/factory-building.webp" alt="ADA CERAMICS Factory" fill style={{ objectFit: 'cover' }} />
               ) : (
                 <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#9ca3af' }}>
                   <Package style={{ width: '64px', height: '64px' }} />
