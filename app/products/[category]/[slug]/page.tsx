@@ -51,8 +51,8 @@ export default async function ProductDetailPage({ params }: PageProps) {
             <Link href="/" className="hover:text-foreground transition-colors">Home</Link>
             <ChevronRight className="w-4 h-4" />
             <Link href="/products" className="hover:text-foreground transition-colors">Products</Link>
-            <ChevronRight className="w-4 h-4" />
-            <Link href={`/products?cat=${categorySlug}`} className="hover:text-foreground transition-colors">
+            <ChevronRight className="f4 h-4" />
+            <Link href={`/products/${categorySlug}`} className="hover:text-foreground transition-colors">
               {categoryInfo.name}
             </Link>
             <ChevronRight className="w-4 h-4" />
@@ -111,7 +111,7 @@ export default async function ProductDetailPage({ params }: PageProps) {
             <div className="space-y-6">
               <div>
                 <Link
-                  href={`/products?cat=${categorySlug}`}
+                  href={`/products/${categorySlug}`}
                   className="text-sm text-primary hover:underline"
                 >
                   {categoryInfo.name}
@@ -133,18 +133,18 @@ export default async function ProductDetailPage({ params }: PageProps) {
               {product.description && (
                 <p className="text-muted-foreground leading-relaxed">
                   {product.description}
-                </p>
+                </p >
               )}
 
               {/* 起订量 & 交期 */}
               <div className="grid grid-cols-2 gap-4">
                 <div className="bg-muted/50 rounded-xl p-4">
-                  <p className="text-sm text-muted-foreground">Minimum Order</p>
-                  <p className="text-lg font-semibold text-foreground">500 pcs</p>
+                  <p className="text-sm text-muted-foreground">Minimum Order</p >
+                  <p className="text-lg font-semibold text-foreground">500 pcs</p >
                 </div>
                 <div className="bg-muted/50 rounded-xl p-4">
-                  <p className="text-sm text-muted-foreground">Lead Time</p>
-                  <p className="text-lg font-semibold text-foreground">15-30 days</p>
+                  <p className="text-sm text-muted-foreground">Lead Time</p >
+                  <p className="text-lg font-semibold text-foreground">15-30 days</p >
                 </div>
               </div>
 
@@ -172,14 +172,14 @@ export default async function ProductDetailPage({ params }: PageProps) {
                   Request Quote
                 </Link>
                 <a
-                  href={`https://wa.me/8615919512131?text=I'm interested in ${product.name}`}
+                  href= 'm interested in ${product.name}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex-1 flex items-center justify-center gap-2 bg-green-500 text-white py-4 rounded-xl font-semibold hover:bg-green-600 transition-colors"
                 >
                   <MessageCircle className="w-5 h-5" />
                   WhatsApp
-                </a>
+                </a >
               </div>
 
               {/* 信任标识 */}
@@ -249,7 +249,7 @@ export default async function ProductDetailPage({ params }: PageProps) {
                         {relProduct.name}
                       </h3>
                       {relProduct.price && (
-                        <p className="text-primary font-semibold">${relProduct.price.toFixed(2)}</p>
+                        <p className="text-primary font-semibold">${relProduct.price.toFixed(2)}</p >
                       )}
                     </div>
                   </Link>
