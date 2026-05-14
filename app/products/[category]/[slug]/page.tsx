@@ -1,73 +1,45 @@
-import { Header } from "@/components/layout/header"
-import { Footer } from "@/components/layout/footer"
-import { products } from "@/lib/data"
-import { notFound } from "next/navigation"
-import Link from "next/link"
+import { Header } from "@/components/layout/header";
+import { Footer } from "@/components/layout/footer";
+import { getProductBySlug } from "@/lib/supabase/products";
+import Link from "next/link";
+import { notFound } from "next/navigation";
 
-export default function ProductDetailPage({ params }: { params: { id: string } }) {
-  const product = products.find(p => p.id === params.id)
+type Props = {
+  params: Promise<{ category: string; slug: string }>;
+};
 
-  if (!product) {
-    return notFound()
-  }
+export default async function ProductDetailPage({ params }: Props) {
+  const { category, slug } = await params;
+  const product = await getProductBySlug(slug);
+
+  if (!product) notFound();
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen flex flex-col">
       <Header />
-      
-      <main className="pt-32 pb-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <nav className="mb-8">
-            <ol className="flex items-center gap-2 text-sm text-gray-500">
-              <li><Link href="/" className="hover:text-black">Home</Link></li>
-              <li>/</li>
-              <li><Link href="/products" className="hover:text-black">Products</Link></li>
-              <li>/</li>
-              <li className="text-black">{product.name}</li>
-            </ol>
-          </nav>
-
-          <div className="grid md:grid-cols-2 gap-12">
-            <div className="rounded-2xl overflow-hidden bg-gray-100 h-80 flex items-center justify-center">
-              <span className="text-gray-400">Product Image</span>
-            </div>
-
-            <div>
-              <h1 className="text-3xl font-bold text-black mb-4">{product.name}</h1>
-              <p className="text-lg text-gray-600 mb-6">{product.description}</p>
-              
-              <div className="space-y-4 mb-8">
-                <div className="flex items-center gap-3">
-                  <span className="font-medium text-black">Material:</span>
-                  <span className="text-gray-600">{product.material}</span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <span className="font-medium text-black">Size:</span>
-                  <span className="text-gray-600">{product.size}</span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <span className="font-medium text-black">MOQ:</span>
-                  <span className="text-gray-600">{product.moq}</span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <span className="font-medium text-black">Certification:</span>
-                  <span className="text-gray-600">{product.certification}</span>
-                </div>
-              </div>
-
-              <Link
-                href="/contact"
-                className="inline-block bg-black text-white px-8 py-3 rounded-xl font-medium hover:bg-gray-800 transition-colors"
-              >
-                Get Quote
-              </Link>
+      <main className="flex-1 pt-28 pb-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <Link href={`/products?cat=${category}`} className="text-blue-600 hover:underline mb-6 inline-block">
+          ← Back to {category} Products
+        </Link>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+          <div className="aspect-square border rounded-lg overflow-hidden">
+            <img
+              src={product.main_image}
+              alt={product.name}
+              className="w-full h-full object-cover"
+            />
+          </div>
+          <div>
+            <h1 className="text-3xl font-bold mb-4">{product.name}</h1>
+            <p className="text-gray-600 mb-6">{product.description}</p >
+            <div className="space-y-4">
+              <p className="text-lg font-medium">SKU: {product.sku}</p >
+              <p className="text-2xl font-bold text-blue-600">${product.price}</p >
             </div>
           </div>
         </div>
       </main>
-
       <Footer />
     </div>
-  )
+  );
 }
-
