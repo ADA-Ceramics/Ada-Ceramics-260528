@@ -16,9 +16,14 @@ const fixedCategories = [
 ];
 
 export default async function ProductsPage({ searchParams }) {
+  // 关键修复：必须 await searchParams
+  const params = await searchParams;
   const products = await getAllProducts();
-  const activeCat = searchParams?.cat || "all";
-  const filteredProducts = activeCat === "all" ? products : products.filter(p => p.category === activeCat);
+  const activeCat = params?.cat || "all";
+  
+  const filteredProducts = activeCat === "all" 
+    ? products 
+    : products.filter(p => p.category === activeCat);
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -51,7 +56,6 @@ export default async function ProductsPage({ searchParams }) {
                 className="group border rounded-lg overflow-hidden hover:shadow-lg transition-shadow"
               >
                 <div className="aspect-square relative">
-                  {/* 用原生img直接读Supabase链接，你后台改图前端自动同步 */}
                   <img
                     src={product.main_image}
                     alt={product.name}
