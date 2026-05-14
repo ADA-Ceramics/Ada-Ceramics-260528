@@ -20,7 +20,6 @@ export default async function ProductsPage({ searchParams }) {
   const products = await getAllProducts();
   const activeCat = params?.cat || "all";
   
-  // 关键：用关联出来的 category_slug 匹配
   const filteredProducts = activeCat === "all" 
     ? products 
     : products.filter(p => p.category_slug === activeCat);
@@ -52,7 +51,8 @@ export default async function ProductsPage({ searchParams }) {
             {filteredProducts.map((product) => (
               <Link
                 key={product.id}
-                href={`/products/${product.slug}`}
+                // 修复：补上分类层级路径，匹配 [category]/[slug]
+                href={`/products/${product.category_slug}/${product.slug}`}
                 className="group border rounded-lg overflow-hidden hover:shadow-lg transition-shadow"
               >
                 <div className="aspect-square relative">
