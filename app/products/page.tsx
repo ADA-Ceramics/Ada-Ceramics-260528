@@ -52,8 +52,9 @@ export default async function ProductsPage() {
                 className="group border rounded-lg overflow-hidden hover:shadow-lg transition-shadow"
               >
                 <div className="aspect-square relative">
+                  {/* 只改这里：直接读取Supabase的imageUrl，不再带占位图干扰 */}
                   <Image
-                    src={product.imageUrl || "/placeholder.jpg"}
+                    src={product.imageUrl}
                     alt={product.name}
                     fill
                     className="object-cover group-hover:scale-105 transition-transform duration-300"
