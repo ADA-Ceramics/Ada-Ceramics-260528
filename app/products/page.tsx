@@ -16,14 +16,14 @@ const fixedCategories = [
 ];
 
 export default async function ProductsPage({ searchParams }) {
-  // 关键修复：必须 await searchParams
   const params = await searchParams;
   const products = await getAllProducts();
   const activeCat = params?.cat || "all";
   
+  // 关键：用关联出来的 category_slug 匹配
   const filteredProducts = activeCat === "all" 
     ? products 
-    : products.filter(p => p.category === activeCat);
+    : products.filter(p => p.category_slug === activeCat);
 
   return (
     <div className="min-h-screen flex flex-col">
