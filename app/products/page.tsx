@@ -44,7 +44,7 @@ export default async function ProductsPage() {
             </ul>
           </aside>
           {/* 右侧产品列表区 */}
-          <div className="flex-1 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="flex-1 grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {products.map((product) => (
               <Link
                 key={product.id}
@@ -52,11 +52,12 @@ export default async function ProductsPage() {
                 className="group border rounded-lg overflow-hidden hover:shadow-lg transition-shadow"
               >
                 <div className="aspect-square relative">
-                  {/* 只改这里：直接读取Supabase的imageUrl，不再带占位图干扰 */}
                   <Image
                     src={product.imageUrl}
                     alt={product.name}
                     fill
+                    loader={({ src }) => src}
+                    unoptimized
                     className="object-cover group-hover:scale-105 transition-transform duration-300"
                   />
                 </div>
