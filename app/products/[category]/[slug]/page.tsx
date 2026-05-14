@@ -51,7 +51,7 @@ export default async function ProductDetailPage({ params }: PageProps) {
             <Link href="/" className="hover:text-foreground transition-colors">Home</Link>
             <ChevronRight className="w-4 h-4" />
             <Link href="/products" className="hover:text-foreground transition-colors">Products</Link>
-            <ChevronRight className="f4 h-4" />
+            <ChevronRight className="w-4 h-4" />
             <Link href={`/products/${categorySlug}`} className="hover:text-foreground transition-colors">
               {categoryInfo.name}
             </Link>
