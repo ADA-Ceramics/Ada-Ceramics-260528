@@ -26,7 +26,7 @@ export interface ProductCategory {
 
 // 分类名称映射
 export const CATEGORY_INFO: Record<string, { name: string; description: string }> = {
-  'white-porcelain': {
+  'high-temp-white-porcelain': {
     name: 'White High-temp Porcelain',
     description: 'Premium white porcelain fired at high temperatures for exceptional durability and elegant appearance.',
   },
@@ -34,7 +34,7 @@ export const CATEGORY_INFO: Record<string, { name: string; description: string }
     name: 'Color Glaze Ceramic',
     description: 'Vibrant color glazed ceramics with rich, lasting colors and unique finishes.',
   },
-  'kiln-change': {
+  'kiln-change-ceramic': {
     name: 'Kiln Change Ceramic',
     description: 'Artistic kiln transformation ceramics with natural, unpredictable color patterns.',
   },
