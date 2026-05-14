@@ -4,8 +4,7 @@ import { ArrowRight } from "lucide-react";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { getAllProducts } from "@/lib/supabase/products";
-import { getAllCategories } from "@/lib/supabase/categories";
-import { CATEGORY_INFO, type Product, type Category } from "@/lib/supabase/types";
+import { CATEGORY_INFO, type Product } from "@/lib/supabase/types";
 import ClientCategoryFilter from "./ClientCategoryFilter";
 
 export const metadata = {
@@ -15,16 +14,33 @@ export const metadata = {
 
 export default async function ProductsPage() {
   const products = await getAllProducts();
-  const categories = await getAllCategories();
 
-  // 用你给的三个slug匹配完整分类信息，拿到对应ID做产品统计
-  const targetSlugs = ["white-high-temp-porcelain", "color-glaze-ceramic", "kiln-change-ceramic-series"];
-  const fixedCategories = targetSlugs.map(slug => categories.find(c => c.slug === slug)).filter(Boolean) as Category[];
+  // 完全对应你 Supabase 里三个真实分类 slug
+  const fixedCategories = [
+    {
+      slug: "white-high-temp-porcelain",
+      name: "High-Temperature White Porcelain",
+      description: "Durable pure white porcelain for hotels & restaurants.",
+      image: "/Alice.webp",
+    },
+    {
+      slug: "color-glaze-ceramic",
+      name: "Color Glaze Ceramics",
+      description: "Vibrant glazed finish, unique elegant tableware.",
+      image: "/color-glaze.webp",
+    },
+    {
+      slug: "kiln-change-ceramic-series",
+      name: "Kiln Change Ceramic",
+      description: "Natural kiln variation, artistic premium tableware.",
+      image: "/kiln-transformation.webp",
+    },
+  ];
 
-  // 通过分类ID关联统计对应产品数
-  const productCountByCategory = fixedCategories.map(category => ({
+  // 自动统计每个分类真实产品数量
+  const productCountByCategory = fixedCategories.map((category) => ({
     ...category,
-    count: products.filter(p => p.category === category.id).length
+    count: products.filter((p) => p.category === category.slug).length,
   }));
 
   return (
