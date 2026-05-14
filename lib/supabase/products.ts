@@ -2,13 +2,16 @@ import { createClient } from './server'
 import type { Product } from './types'
 import { CATEGORY_INFO } from './types'
 
-// 获取所有产品
-export async function getAllProducts(): Promise<Product[]> {
+// 获取所有产品 关联分类表拿到slug
+export async function getAllProducts(): Promise<(Product & { category_slug: string })[]> {
   const supabase = await createClient()
   
   const { data, error } = await supabase
     .from('products')
-    .select('*')
+    .select(`
+      *,
+      product_categories!products_category_fkey(slug)
+    `)
     .eq('is_active', true)
     .order('sort_order', { ascending: true })
   
@@ -17,18 +20,25 @@ export async function getAllProducts(): Promise<Product[]> {
     return []
   }
   
-  return data || []
+  // 把分类slug挂到产品上
+  return (data || []).map(item => ({
+    ...item,
+    category_slug: item.product_categories?.slug || ''
+  }))
 }
 
 // 获取指定分类的产品
-export async function getProductsByCategory(category: string): Promise<Product[]> {
+export async function getProductsByCategory(categorySlug: string) {
   const supabase = await createClient()
   
   const { data, error } = await supabase
     .from('products')
-    .select('*')
-    .eq('category', category)
+    .select(`
+      *,
+      product_categories!products_category_fkey(slug)
+    `)
     .eq('is_active', true)
+    .eq('product_categories.slug', categorySlug)
     .order('sort_order', { ascending: true })
   
   if (error) {
@@ -59,14 +69,14 @@ export async function getProductBySlug(slug: string): Promise<Product | null> {
 }
 
 // 获取分类下的产品数量
-export async function getProductCountByCategory(category: string): Promise<number> {
+export async function getProductCountByCategory(categorySlug: string): Promise<number> {
   const supabase = await createClient()
   
   const { count, error } = await supabase
     .from('products')
-    .select('*', { count: 'exact', head: true })
-    .eq('category', category)
+    .select('*, product_categories!products_category_fkey(slug)', { count: 'exact', head: true })
     .eq('is_active', true)
+    .eq('product_categories.slug', categorySlug)
   
   if (error) {
     console.error('Error fetching product count:', error)
@@ -76,35 +86,19 @@ export async function getProductCountByCategory(category: string): Promise<numbe
   return count || 0
 }
 
-// 从数据库获取所有分类（基于products表中的category字段）
-export async function getCategories(): Promise<{ slug: string; name: string; description: string; image: string | null }[]> {
+// 从数据库获取所有分类
+export async function getCategories() {
   const supabase = await createClient()
   
-  // 获取所有不重复的分类，并获取每个分类的第一个产品的图片
   const { data, error } = await supabase
-    .from('products')
-    .select('category, main_image')
-    .eq('is_active', true)
-    .order('sort_order', { ascending: true })
+    .from('product_categories')
+    .select('slug, name, description')
+    .order('name')
   
   if (error) {
     console.error('Error fetching categories:', error)
     return []
   }
   
-  // 按分类分组，取每个分类的第一个产品图片
-  const categoryMap = new Map<string, string | null>()
-  for (const product of data || []) {
-    if (!categoryMap.has(product.category)) {
-      categoryMap.set(product.category, product.main_image)
-    }
-  }
-  
-  // 转换为分类数组
-  return Array.from(categoryMap.entries()).map(([slug, image]) => ({
-    slug,
-    name: CATEGORY_INFO[slug]?.name || slug,
-    description: CATEGORY_INFO[slug]?.description || '',
-    image,
-  }))
+  return data || []
 }
