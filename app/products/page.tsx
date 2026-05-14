@@ -53,7 +53,7 @@ export default async function ProductsPage({ searchParams }) {
                 <div className="aspect-square relative">
                   {/* 用原生img直接读Supabase链接，你后台改图前端自动同步 */}
                   <img
-                    src={product.imageUrl}
+                    src={product.main_image}
                     alt={product.name}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                   />
