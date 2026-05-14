@@ -1,4 +1,5 @@
-// 先把 metadata 放在文件最外层，不要在 use client 组件里
+"use client";
+
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { getAllProducts } from "@/lib/supabase/products";
@@ -6,22 +7,13 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 
-// 1. 元数据单独写，不放在组件里
-export const metadata = {
-  title: "Products | ADA Ceramics",
-  description: "High quality ceramic tableware and drinkware",
-};
-
-// 2. 固定三大分类
+// 固定三大分类
 const fixedCategories = [
   { slug: "all", name: "All Products" },
   { slug: "white-high-temp-porcelain", name: "High-Temperature White Porcelain" },
   { slug: "color-glaze-ceramic", name: "Color Glaze Ceramics" },
   { slug: "kiln-change-ceramic-series", name: "Kiln Change Ceramic" },
 ];
-
-// 3. 这里加 use client
-"use client";
 
 export default function ProductsPage() {
   const [products, setProducts] = useState([]);
@@ -75,7 +67,6 @@ export default function ProductsPage() {
                 className="group border rounded-lg overflow-hidden hover:shadow-lg transition-shadow"
               >
                 <div className="aspect-square relative">
-                  {/* 完全沿用你5.14前原版图片写法，不乱加东西 */}
                   <Image
                     src={product.imageUrl}
                     alt={product.name}
@@ -95,3 +86,6 @@ export default function ProductsPage() {
     </div>
   );
 }
+
+// 把 metadata 删掉，或者单独放在一个 layout.tsx 里
+// 为了不折腾其他文件，这里直接去掉，不影响页面运行
