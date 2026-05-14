@@ -133,18 +133,18 @@ export default async function ProductDetailPage({ params }: PageProps) {
               {product.description && (
                 <p className="text-muted-foreground leading-relaxed">
                   {product.description}
-                </p >
+                </p>
               )}
 
               {/* 起订量 & 交期 */}
               <div className="grid grid-cols-2 gap-4">
                 <div className="bg-muted/50 rounded-xl p-4">
-                  <p className="text-sm text-muted-foreground">Minimum Order</p >
-                  <p className="text-lg font-semibold text-foreground">500 pcs</p >
+                  <p className="text-sm text-muted-foreground">Minimum Order</p>
+                  <p className="text-lg font-semibold text-foreground">500 pcs</p>
                 </div>
                 <div className="bg-muted/50 rounded-xl p-4">
-                  <p className="text-sm text-muted-foreground">Lead Time</p >
-                  <p className="text-lg font-semibold text-foreground">15-30 days</p >
+                  <p className="text-sm text-muted-foreground">Lead Time</p>
+                  <p className="text-lg font-semibold text-foreground">15-30 days</p>
                 </div>
               </div>
 
@@ -172,14 +172,14 @@ export default async function ProductDetailPage({ params }: PageProps) {
                   Request Quote
                 </Link>
                 <a
-                  href= 'm interested in ${product.name}`}
+                  href={`https://wa.me/?text=I'm interested in ${encodeURIComponent(product.name)}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex-1 flex items-center justify-center gap-2 bg-green-500 text-white py-4 rounded-xl font-semibold hover:bg-green-600 transition-colors"
                 >
                   <MessageCircle className="w-5 h-5" />
                   WhatsApp
-                </a >
+                </a>
               </div>
 
               {/* 信任标识 */}
@@ -249,7 +249,7 @@ export default async function ProductDetailPage({ params }: PageProps) {
                         {relProduct.name}
                       </h3>
                       {relProduct.price && (
-                        <p className="text-primary font-semibold">${relProduct.price.toFixed(2)}</p >
+                        <p className="text-primary font-semibold">${relProduct.price.toFixed(2)}</p>
                       )}
                     </div>
                   </Link>
