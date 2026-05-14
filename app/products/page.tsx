@@ -3,44 +3,33 @@ import { Footer } from "@/components/layout/footer";
 import { getAllProducts } from "@/lib/supabase/products";
 import Image from "next/image";
 import Link from "next/link";
+import ClientCategoryFilter from "./ClientCategoryFilter";
 
 export const metadata = {
   title: "Products | ADA Ceramics",
   description: "High quality ceramic tableware and drinkware",
 };
 
+// 你固定的三个分类，和Supabase里的category字段对应
+const fixedCategories = [
+  { slug: "white-high-temp-porcelain", name: "High-Temperature White Porcelain" },
+  { slug: "color-glaze-ceramic", name: "Color Glaze Ceramics" },
+  { slug: "kiln-change-ceramic-series", name: "Kiln Change Ceramic" },
+];
+
 export default async function ProductsPage() {
+  // 从Supabase拉所有产品，保留你原来的联动逻辑
   const products = await getAllProducts();
 
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
-      <main className="flex-1 pt-28 pb-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center mb-12">
-          <h1 className="text-4xl font-bold">Our Products</h1>
-        </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto px-4">
-          {products.map((product) => (
-            <Link
-              key={product.id}
-              href={`/products/${product.slug}`}
-              className="group border rounded-lg overflow-hidden hover:shadow-lg transition-shadow"
-            >
-              <div className="aspect-square relative">
-                <Image
-                  src={product.imageUrl || "/placeholder.jpg"}
-                  alt={product.name}
-                  fill
-                  className="object-cover group-hover:scale-105 transition-transform duration-300"
-                />
-              </div>
-              <div className="p-4">
-                <h3 className="text-lg font-semibold">{product.name}</h3>
-                <p className="text-gray-600 mt-2">{product.description}</p >
-              </div>
-            </Link>
-          ))}
-        </div>
+      <main className="flex-1 pt-28 pb-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h1 className="text-4xl font-bold text-center mb-12">Our Products</h1>
+        <ClientCategoryFilter 
+          categories={fixedCategories} 
+          products={products} 
+        />
       </main>
       <Footer />
     </div>
