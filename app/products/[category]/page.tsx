@@ -17,7 +17,7 @@ export default async function CategoryPage({ params }: { params: { category: str
   if (!categoryInfo) notFound();
 
   const allProducts = await getAllProducts();
-  const categoryProducts = allProducts.filter(p => p.category === params.category);
+  const categoryProducts = allProducts.filter(p => p.category_slug === params.category);
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -28,7 +28,7 @@ export default async function CategoryPage({ params }: { params: { category: str
           {categoryProducts.map((product) => (
             <Link 
               key={product.id} 
-              href={`/products/${params.category}/${product.slug}`}
+              href={`/products/${product.category_slug}/${product.slug}`}
               className="group bg-white rounded-xl overflow-hidden border border-border hover:shadow-lg transition-all duration-300"
             >
               <div className="aspect-square bg-gradient-to-b from-muted to-muted/50 relative overflow-hidden">
@@ -46,7 +46,7 @@ export default async function CategoryPage({ params }: { params: { category: str
                   {product.name}
                 </h3>
                 {product.price && (
-                  <p className="text-primary font-semibold">{product.price.toFixed(2)}</p>
+                  <p className="text-primary font-semibold">{product.price.toFixed(2)}</p >
                 )}
               </div>
             </Link>
