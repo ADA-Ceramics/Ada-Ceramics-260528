@@ -15,28 +15,29 @@ export const metadata = {
 export default async function ProductsPage() {
   const products = await getAllProducts()
 
+  // 已按你 Supabase 真实分类slug 精准对齐
   const fixedCategories = [
     {
-      slug: "high-temperature-white-porcelain",
+      slug: "white-ceramic-plate",
       name: "High-Temperature White Porcelain",
       description: "Durable pure white porcelain for hotels & restaurants.",
       image: "/Alice.webp",
     },
     {
-      slug: "color-glaze-ceramics",
+      slug: "color-glaze-ceramic",
       name: "Color Glaze Ceramics",
       description: "Vibrant glazed finish, unique elegant tableware.",
       image: "/color-glaze.webp",
     },
     {
-      slug: "kiln-change-ceramic",
+      slug: "kiln-change-ceramic-series",
       name: "Kiln Change Ceramic",
       description: "Natural kiln variation, artistic premium tableware.",
       image: "/kiln-transformation.webp",
     },
   ]
 
-  // 统计每个分类数量
+  // 自动统计每个分类真实产品数量
   const productCountByCategory = fixedCategories.map(category => ({
     ...category,
     count: products.filter(p => p.category === category.slug).length
@@ -58,7 +59,6 @@ export default async function ProductsPage() {
         </div>
       </section>
 
-      {/* 把交互逻辑抽到客户端组件 */}
       <ClientCategoryFilter
         categories={productCountByCategory}
         allProducts={products}
