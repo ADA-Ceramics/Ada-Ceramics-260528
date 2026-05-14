@@ -1,7 +1,8 @@
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
-import ClientProductList from "./ClientProductList";
 import { getAllProducts } from "@/lib/supabase/products";
+import Image from "next/image";
+import Link from "next/link";
 
 export const metadata = {
   title: "Products | ADA Ceramics",
@@ -18,7 +19,28 @@ export default async function ProductsPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center mb-12">
           <h1 className="text-4xl font-bold">Our Products</h1>
         </div>
-        <ClientProductList products={products} />
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto px-4">
+          {products.map((product) => (
+            <Link
+              key={product.id}
+              href={`/products/${product.slug}`}
+              className="group border rounded-lg overflow-hidden hover:shadow-lg transition-shadow"
+            >
+              <div className="aspect-square relative">
+                <Image
+                  src={product.imageUrl || "/placeholder.jpg"}
+                  alt={product.name}
+                  fill
+                  className="object-cover group-hover:scale-105 transition-transform duration-300"
+                />
+              </div>
+              <div className="p-4">
+                <h3 className="text-lg font-semibold">{product.name}</h3>
+                <p className="text-gray-600 mt-2">{product.description}</p >
+              </div>
+            </Link>
+          ))}
+        </div>
       </main>
       <Footer />
     </div>
