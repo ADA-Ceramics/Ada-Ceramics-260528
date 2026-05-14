@@ -28,7 +28,7 @@ export default async function CategoryPage({ params }: { params: { category: str
           {categoryProducts.map((product) => (
             <Link 
               key={product.id} 
-              href={`/products/${product.category}/${product.slug}`}
+              href={`/products/${params.category}/${product.slug}`}
               className="group bg-white rounded-xl overflow-hidden border border-border hover:shadow-lg transition-all duration-300"
             >
               <div className="aspect-square bg-gradient-to-b from-muted to-muted/50 relative overflow-hidden">
