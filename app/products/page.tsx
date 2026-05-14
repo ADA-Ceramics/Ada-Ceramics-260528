@@ -3,7 +3,7 @@ import Image from "next/image"
 import { ArrowRight } from "lucide-react"
 import { Header } from "@/components/layout/header"
 import { Footer } from "@/components/layout/footer"
-import { getAllProducts, getCategories } from "@/lib/supabase/products"
+import { getAllProducts } from "@/lib/supabase/products"
 import { CATEGORY_INFO, type Product } from "@/lib/supabase/types"
 
 export const metadata = {
@@ -12,13 +12,32 @@ export const metadata = {
 }
 
 export default async function ProductsPage() {
-  const [products, categoriesFromDB] = await Promise.all([
-    getAllProducts(),
-    getCategories()
-  ])
+  const products = await getAllProducts()
 
-  // 按分类统计产品数量，使用数据库中的分类和图片
-  const productCountByCategory = categoriesFromDB.map(category => ({
+  // 👇 这里改成你固定的3个分类，和首页完全一样
+  const fixedCategories = [
+    {
+      slug: "high-temperature-white-porcelain", // 对应你实际的分类slug
+      name: "High-Temperature White Porcelain",
+      description: "Durable pure white porcelain for hotels & restaurants.",
+      image: "/Alice.webp", // 第一张图
+    },
+    {
+      slug: "color-glaze-ceramics",
+      name: "Color Glaze Ceramics",
+      description: "Vibrant glazed finish, unique elegant tableware.",
+      image: "/color-glaze.webp", // 第二张图
+    },
+    {
+      slug: "kiln-change-ceramic",
+      name: "Kiln Change Ceramic",
+      description: "Natural kiln variation, artistic premium tableware.",
+      image: "/kiln-transformation.webp", // 第三张图
+    },
+  ]
+
+  // 统计每个分类的产品数量（还是动态统计，只是卡片固定）
+  const productCountByCategory = fixedCategories.map(category => ({
     ...category,
     count: products.filter(p => p.category === category.slug).length
   }))
@@ -36,11 +55,11 @@ export default async function ProductsPage() {
           <p className="text-lg text-black/70 max-w-2xl mx-auto">
             Discover our comprehensive range of food-grade ceramic products,
             each crafted with precision and care to meet the highest standards.
-          </p>
+          </p >
         </div>
       </section>
 
-      {/* Categories Grid */}
+      {/* Categories Grid - 这里现在用固定的3个分类，不再从数据库抓 */}
       <section className="py-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-2xl font-bold text-foreground mb-8">Browse by Category</h2>
@@ -52,14 +71,12 @@ export default async function ProductsPage() {
                 className="group relative bg-card rounded-2xl overflow-hidden border border-border hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
               >
                 <div className="aspect-[4/3] bg-gradient-to-br from-muted to-muted/50 relative overflow-hidden">
-                  {category.image && (
-                    <Image
-                      src={category.image}
-                      alt={category.name}
-                      fill
-                      className="object-cover group-hover:scale-105 transition-transform duration-300"
-                    />
-                  )}
+                  <Image
+                    src={category.image}
+                    alt={category.name}
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-300"
+                  />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
                 </div>
                 <div className="p-6">
@@ -73,7 +90,7 @@ export default async function ProductsPage() {
                   </div>
                   <p className="text-muted-foreground text-sm">
                     {category.description}
-                  </p>
+                  </p >
                 </div>
                 <div className="absolute top-4 right-4 w-10 h-10 bg-white/90 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all transform translate-x-2 group-hover:translate-x-0">
                   <ArrowRight className="w-5 h-5 text-primary" />
@@ -86,14 +103,13 @@ export default async function ProductsPage() {
           <h2 className="text-2xl font-bold text-foreground mb-8">All Products</h2>
           {products.length === 0 ? (
             <div className="text-center py-12">
-              <p className="text-muted-foreground">No products available at the moment.</p>
+              <p className="text-muted-foreground">No products available at the moment.</p >
             </div>
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
               {products.map((product: Product) => (
                 <Link
                   key={product.id}
-                  // ✅ 已修正为你项目真实的详情页路径
                   href={`/products/${product.category}/${product.slug}`}
                   className="group bg-card rounded-xl overflow-hidden border border-border hover:shadow-lg transition-all duration-300"
                 >
@@ -122,7 +138,7 @@ export default async function ProductsPage() {
                     </h3>
                     <div className="flex items-center justify-between">
                       {product.price && (
-                        <p className="text-primary font-semibold">${product.price.toFixed(2)}</p>
+                        <p className="text-primary font-semibold">${product.price.toFixed(2)}</p >
                       )}
                     </div>
                   </div>
