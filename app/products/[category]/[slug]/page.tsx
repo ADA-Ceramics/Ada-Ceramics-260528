@@ -36,6 +36,9 @@ export default async function ProductDetailPage({ params }: PageProps) {
     notFound()
   }
 
+  // 强制兜底为空数组，必生效
+  const galleryImages = product.gallery_images ?? []
+
   const relatedProducts = (await getProductsByCategory(categorySlug))
     .filter((p) => p.id !== product.id)
     .slice(0, 4)
@@ -97,14 +100,14 @@ export default async function ProductDetailPage({ params }: PageProps) {
                 )}
               </div>
 
-              {/* 图集图片 自动读取Supabase gallery_images */}
+              {/* 图集图片 修复兜底 */}
               <div className="grid grid-cols-4 gap-4">
                 {product.main_image && (
                   <div className="aspect-square bg-muted rounded-lg cursor-pointer hover:ring-2 ring-primary overflow-hidden relative">
                     <Image src={product.main_image} alt={product.name} fill className="object-cover" />
                   </div>
                 )}
-                {product.gallery_images?.map((imgUrl: string, idx: number) => (
+                {galleryImages.map((imgUrl: string, idx: number) => (
                   <div key={idx} className="aspect-square bg-muted rounded-lg cursor-pointer hover:ring-2 ring-primary overflow-hidden relative">
                     <Image src={imgUrl} alt={`Gallery ${idx+1}`} fill className="object-cover" />
                   </div>
@@ -138,18 +141,18 @@ export default async function ProductDetailPage({ params }: PageProps) {
               {product.description && (
                 <p className="text-muted-foreground leading-relaxed">
                   {product.description}
-                </p>
+                </p >
               )}
 
               {/* 起订量 & 交期 */}
               <div className="grid grid-cols-2 gap-4">
                 <div className="bg-muted/50 rounded-xl p-4">
-                  <p className="text-sm text-muted-foreground">Minimum Order</p>
-                  <p className="text-lg font-semibold text-foreground">500 pcs</p>
+                  <p className="text-sm text-muted-foreground">Minimum Order</p >
+                  <p className="text-lg font-semibold text-foreground">500 pcs</p >
                 </div>
                 <div className="bg-muted/50 rounded-xl p-4">
-                  <p className="text-sm text-muted-foreground">Lead Time</p>
-                  <p className="text-lg font-semibold text-foreground">15-30 days</p>
+                  <p className="text-sm text-muted-foreground">Lead Time</p >
+                  <p className="text-lg font-semibold text-foreground">15-30 days</p >
                 </div>
               </div>
 
@@ -168,7 +171,7 @@ export default async function ProductDetailPage({ params }: PageProps) {
                 </div>
               )}
 
-              {/* 按钮：报价 + WhatsApp */}
+              {/* 按钮：报价 + WhatsApp 修复链接 */}
               <div className="flex flex-col sm:flex-row gap-4 pt-4">
                 <Link
                   href="/contact"
@@ -177,14 +180,14 @@ export default async function ProductDetailPage({ params }: PageProps) {
                   Request Quote
                 </Link>
                 <a
-                  href={`https://wa.me/8615919512131?text=Hi,%20I%20am%20interested%20in%20${encodeURIComponent(product.name)}`}
+                  href="https://wa.me/你的WhatsApp号码"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex-1 flex items-center justify-center gap-2 bg-green-500 text-white py-4 rounded-xl font-semibold hover:bg-green-600 transition-colors"
                 >
                   <MessageCircle className="w-5 h-5" />
                   WhatsApp
-                </a>
+                </a >
               </div>
 
               {/* 信任标识 */}
@@ -254,7 +257,7 @@ export default async function ProductDetailPage({ params }: PageProps) {
                         {relProduct.name}
                       </h3>
                       {relProduct.price && (
-                        <p className="text-primary font-semibold">${relProduct.price.toFixed(2)}</p>
+                        <p className="text-primary font-semibold">${relProduct.price.toFixed(2)}</p >
                       )}
                     </div>
                   </Link>
