@@ -8,7 +8,7 @@ import { getProductBySlug, getProductsByCategory } from "@/lib/supabase/products
 import { CATEGORY_INFO, type Product } from "@/lib/supabase/types"
 
 // 正确导入组件
-import ImageGallerySwitch from "../ImageGallerySwitch"
+import ImageGallerySwitch from "./ImageGallerySwitch"
 
 interface PageProps {
   params: Promise<{ category: string; slug: string }>
