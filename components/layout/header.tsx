@@ -33,15 +33,14 @@ export function Header() {
   return (
     <header
       className={cn(
-        "fixed top-0 left-0 right-0 z-[9999] transition-all duration-300",
+        "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
         isScrolled
           ? "bg-white/95 backdrop-blur-md shadow-sm"
           : "bg-transparent"
       )}
     >
-      {/* 🔥 关键修复：给父容器加 overflow-visible，避免菜单被裁 */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 overflow-visible">
-        <div className="flex items-center justify-between h-20 overflow-visible">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between h-20">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2">
             <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
@@ -56,12 +55,12 @@ export function Header() {
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center gap-8 overflow-visible">
+          <nav className="hidden lg:flex items-center gap-8">
             {navItems.map((item) => (
-              <div key={item.name} className="relative group overflow-visible">
+              <div key={item.name} className="relative group">
                 {item.hasDropdown ? (
                   <div
-                    className="relative overflow-visible"
+                    className="relative"
                     onMouseEnter={() => setIsProductsOpen(true)}
                     onMouseLeave={() => setIsProductsOpen(false)}
                   >
@@ -82,12 +81,12 @@ export function Header() {
                       )} />
                     </Link>
                     
-                    {/* 🔥 关键修复：下拉菜单强制脱离父容器裁剪 */}
+                    {/* Dropdown Menu */}
                     <div className={cn(
-                      "absolute top-full left-0 w-[320px] z-[9999] pt-2 transition-all duration-300",
+                      "absolute top-full left-0 pt-2 transition-all duration-200",
                       isProductsOpen ? "opacity-100 visible translate-y-0" : "opacity-0 invisible -translate-y-2"
                     )}>
-                      <div className="bg-white rounded-xl shadow-xl border border-border/50 py-2 min-h-[300px]">
+                      <div className="bg-white rounded-xl shadow-xl border border-border/50 py-2 min-w-[280px]">
                         <div className="px-4 py-2 border-b border-border/50">
                           <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">
                             Product Categories
