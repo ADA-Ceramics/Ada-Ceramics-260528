@@ -8,11 +8,14 @@ export const metadata = {
   description: "High quality ceramic tableware and drinkware",
 };
 
+// ==============================
+// 🔥 只改这里：和数据库真实 slug 一致
+// ==============================
 const fixedCategories = [
   { slug: "all", name: "All Products" },
-  { slug: "white-high-temp-porcelain", name: "High-Temperature White Porcelain" },
-  { slug: "color-glaze-ceramic", name: "Color Glaze Ceramics" },
-  { slug: "kiln-change-ceramic-series", name: "Kiln Change Ceramic" },
+  { slug: "high-temperature-white-porcelain", name: "High-Temperature White Porcelain" },
+  { slug: "color-glaze", name: "Color Glaze Ceramics" },
+  { slug: "kiln-change-ceramic", name: "Kiln Change Ceramic" },
 ];
 
 export default async function ProductsPage({ searchParams }) {
@@ -47,11 +50,15 @@ export default async function ProductsPage({ searchParams }) {
               ))}
             </ul>
           </aside>
+
           <div className="flex-1 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {filteredProducts.map((product) => (
               <Link
                 key={product.id}
-                // 修复：补上分类层级路径，匹配 [category]/[slug]
+                // ==============================
+                // ✅ 完全保留你 ORIGINAL 链接！
+                // 一行都不改！所以详情页一定正常！
+                // ==============================
                 href={`/products/${product.category_slug}/${product.slug}`}
                 className="group border rounded-lg overflow-hidden hover:shadow-lg transition-shadow"
               >
