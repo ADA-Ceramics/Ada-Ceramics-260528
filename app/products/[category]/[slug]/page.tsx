@@ -7,8 +7,8 @@ import { Footer } from "@/components/layout/footer"
 import { getProductBySlug, getProductsByCategory } from "@/lib/supabase/products"
 import { CATEGORY_INFO, type Product } from "@/lib/supabase/types"
 
-// 【已修正】同目录引入，把 ../ 改成 ./
-import ImageGallerySwitch from "./ImageGallerySwitch"
+// ✅ 这是唯一正确的导入（上级目录）
+import ImageGallerySwitch from "../ImageGallerySwitch"
 
 interface PageProps {
   params: Promise<{ category: string; slug: string }>
@@ -102,17 +102,17 @@ export default async function ProductDetailPage({ params }: PageProps) {
               {product.description && (
                 <p className="text-muted-foreground leading-relaxed">
                   {product.description}
-                </p >
+                </p>
               )}
 
               <div className="grid grid-cols-2 gap-4">
                 <div className="bg-muted/50 rounded-xl p-4">
-                  <p className="text-sm text-muted-foreground">Minimum Order</p >
-                  <p className="text-lg font-semibold text-foreground">500 pcs</p >
+                  <p className="text-sm text-muted-foreground">Minimum Order</p>
+                  <p className="text-lg font-semibold text-foreground">500 pcs</p>
                 </div>
                 <div className="bg-muted/50 rounded-xl p-4">
-                  <p className="text-sm text-muted-foreground">Lead Time</p >
-                  <p className="text-lg font-semibold text-foreground">15-30 days</p >
+                  <p className="text-sm text-muted-foreground">Lead Time</p>
+                  <p className="text-lg font-semibold text-foreground">15-30 days</p>
                 </div>
               </div>
 
@@ -145,7 +145,7 @@ export default async function ProductDetailPage({ params }: PageProps) {
                 >
                   <MessageCircle className="w-5 h-5" />
                   WhatsApp
-                </a >
+                </a>
               </div>
 
               <div className="flex items-center gap-6 pt-4 border-t border-border">
@@ -212,7 +212,7 @@ export default async function ProductDetailPage({ params }: PageProps) {
                         {relProduct.name}
                       </h3>
                       {relProduct.price && (
-                        <p className="text-primary font-semibold">${relProduct.price.toFixed(2)}</p >
+                        <p className="text-primary font-semibold">${relProduct.price.toFixed(2)}</p>
                       )}
                     </div>
                   </Link>
