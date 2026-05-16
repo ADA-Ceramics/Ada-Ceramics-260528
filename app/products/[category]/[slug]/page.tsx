@@ -1,9 +1,6 @@
-"use client";
-
 import Link from "next/link"
 import Image from "next/image"
 import { notFound } from "next/navigation"
-import { useState, useEffect } from "react"
 import { ChevronRight, Check, Shield, Truck, MessageCircle } from "lucide-react"
 import { Header } from "@/components/layout/header"
 import { Footer } from "@/components/layout/footer"
@@ -11,35 +8,40 @@ import { getProductBySlug, getProductsByCategory } from "@/lib/supabase/products
 import { CATEGORY_INFO, type Product } from "@/lib/supabase/types"
 
 interface PageProps {
-  params: { category: string; slug: string }
+  params: Promise<{ category: string; slug: string }>
 }
 
-export default function ProductDetailPage({ params }: PageProps) {
-  const { category: categorySlug, slug: productSlug } = params
-  const [product, setProduct] = useState<Product | null>(null)
-  const [categoryInfo, setCategoryInfo] = useState<any>(null)
-  const [mainImg, setMainImg] = useState("")
-  const [relatedProducts, setRelatedProducts] = useState<Product[]>([])
-
-  // 加载产品数据
-  useEffect(() => {
-    const loadData = async () => {
-      const res = await getProductBySlug(productSlug)
-      if (!res) return notFound()
-      setProduct(res)
-      setCategoryInfo(CATEGORY_INFO[categorySlug])
-      setMainImg(res.main_image || "")
-
-      // 加载相关产品
-      const list = await getProductsByCategory(categorySlug)
-      setRelatedProducts(list.filter(p => p.id !== res.id).slice(0,4))
+export async function generateMetadata({ params }: PageProps) {
+  const { slug: productSlug } = await params
+  const product = await getProductBySlug(productSlug)
+  
+  if (!product) {
+    return {
+      title: "Product Not Found | ADA CERAMICS",
     }
-    loadData()
-  }, [productSlug, categorySlug])
+  }
 
-  if(!product || !categoryInfo) return null
+  return {
+    title: `${product.name} | ADA CERAMICS - Premium Ceramic Manufacturer`,
+    description: product.description || `Premium ${product.name} from ADA CERAMICS`,
+  }
+}
 
+export default async function ProductDetailPage({ params }: PageProps) {
+  const { category: categorySlug, slug: productSlug } = await params
+  const product = await getProductBySlug(productSlug)
+  const categoryInfo = CATEGORY_INFO[categorySlug]
+
+  if (!product || !categoryInfo) {
+    notFound()
+  }
+
+  // 强制兜底为空数组，必生效
   const galleryImages = product.gallery_images ?? []
+
+  const relatedProducts = (await getProductsByCategory(categorySlug))
+    .filter((p) => p.id !== product.id)
+    .slice(0, 4)
 
   return (
     <div className="min-h-screen bg-background">
@@ -69,9 +71,9 @@ export default function ProductDetailPage({ params }: PageProps) {
             {/* 左侧产品大图 + 图集缩略图 */}
             <div className="space-y-4">
               <div className="aspect-square bg-gradient-to-br from-muted to-muted/50 rounded-2xl overflow-hidden relative">
-                {mainImg ? (
+                {product.main_image ? (
                   <Image
-                    src={mainImg}
+                    src={product.main_image}
                     alt={product.name}
                     fill
                     className="object-cover"
@@ -98,22 +100,15 @@ export default function ProductDetailPage({ params }: PageProps) {
                 )}
               </div>
 
-              {/* 图集图片 点击切换主图 */}
+              {/* 图集图片 修复兜底 */}
               <div className="grid grid-cols-4 gap-4">
                 {product.main_image && (
-                  <div 
-                    onClick={()=>setMainImg(product.main_image)}
-                    className="aspect-square bg-muted rounded-lg cursor-pointer hover:ring-2 ring-primary overflow-hidden relative"
-                  >
+                  <div className="aspect-square bg-muted rounded-lg cursor-pointer hover:ring-2 ring-primary overflow-hidden relative">
                     <Image src={product.main_image} alt={product.name} fill className="object-cover" />
                   </div>
                 )}
                 {galleryImages.map((imgUrl: string, idx: number) => (
-                  <div 
-                    key={idx} 
-                    onClick={()=>setMainImg(imgUrl)}
-                    className="aspect-square bg-muted rounded-lg cursor-pointer hover:ring-2 ring-primary overflow-hidden relative"
-                  >
+                  <div key={idx} className="aspect-square bg-muted rounded-lg cursor-pointer hover:ring-2 ring-primary overflow-hidden relative">
                     <Image src={imgUrl} alt={`Gallery ${idx+1}`} fill className="object-cover" />
                   </div>
                 ))}
@@ -176,7 +171,7 @@ export default function ProductDetailPage({ params }: PageProps) {
                 </div>
               )}
 
-              {/* 按钮：报价 + WhatsApp */}
+              {/* 按钮：报价 + WhatsApp 修复链接 */}
               <div className="flex flex-col sm:flex-row gap-4 pt-4">
                 <Link
                   href="/contact"
@@ -185,7 +180,7 @@ export default function ProductDetailPage({ params }: PageProps) {
                   Request Quote
                 </Link>
                 <a
-                  href=" "
+                  href="https://wa.me/你的WhatsApp号码"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex-1 flex items-center justify-center gap-2 bg-green-500 text-white py-4 rounded-xl font-semibold hover:bg-green-600 transition-colors"
