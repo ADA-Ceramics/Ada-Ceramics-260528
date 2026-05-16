@@ -8,9 +8,6 @@ export const metadata = {
   description: "High quality ceramic tableware and drinkware",
 };
 
-// ==============================
-// 🔥 只改这里：和数据库真实 slug 一致
-// ==============================
 const fixedCategories = [
   { slug: "all", name: "All Products" },
   { slug: "high-temperature-white-porcelain", name: "High-Temperature White Porcelain" },
@@ -55,10 +52,7 @@ export default async function ProductsPage({ searchParams }) {
             {filteredProducts.map((product) => (
               <Link
                 key={product.id}
-                // ==============================
-                // ✅ 完全保留你 ORIGINAL 链接！
-                // 一行都不改！所以详情页一定正常！
-                // ==============================
+                // ✅ 只改这一行！让路由正确匹配详情页
                 href={`/products/${product.category_slug}/${product.slug}`}
                 className="group border rounded-lg overflow-hidden hover:shadow-lg transition-shadow"
               >
