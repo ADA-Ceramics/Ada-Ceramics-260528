@@ -1,6 +1,9 @@
+"use client";
+
 import Link from "next/link"
 import Image from "next/image"
 import { notFound } from "next/navigation"
+import { useState, useEffect } from "react"
 import { ChevronRight, Check, Shield, Truck, MessageCircle } from "lucide-react"
 import { Header } from "@/components/layout/header"
 import { Footer } from "@/components/layout/footer"
@@ -27,27 +30,37 @@ export async function generateMetadata({ params }: PageProps) {
   }
 }
 
-export default async function ProductDetailPage({ params }: PageProps) {
-  const { category: categorySlug, slug: productSlug } = await params
-  const product = await getProductBySlug(productSlug)
-  const categoryInfo = CATEGORY_INFO[categorySlug]
+export default function ProductDetailPage({ params }: PageProps) {
+  const [pageParams, setPageParams] = useState<{category:string,slug:string}|null>(null)
+  const [product, setProduct] = useState<Product|null>(null)
+  const [categoryInfo, setCategoryInfo] = useState<any>(null)
+  const [mainShowImg, setMainShowImg] = useState("")
+  const [relatedProducts, setRelatedProducts] = useState<Product[]>([])
 
-  if (!product || !categoryInfo) {
-    notFound()
-  }
+  useEffect(() => {
+    const initData = async () => {
+      const p = await params
+      setPageParams(p)
+      const res = await getProductBySlug(p.slug)
+      if(!res) return notFound()
+      setProduct(res)
+      setCategoryInfo(CATEGORY_INFO[p.category])
+      setMainShowImg(res.main_image || "")
+      const list = await getProductsByCategory(p.category)
+      setRelatedProducts(list.filter(item => item.id !== res.id).slice(0,4))
+    }
+    initData()
+  },[params])
 
-  // 强制兜底为空数组，必生效
+  if(!product || !categoryInfo || !pageParams) return null
+
+  const { category: categorySlug } = pageParams
   const galleryImages = product.gallery_images ?? []
-
-  const relatedProducts = (await getProductsByCategory(categorySlug))
-    .filter((p) => p.id !== product.id)
-    .slice(0, 4)
 
   return (
     <div className="min-h-screen bg-background">
       <Header />
       
-      {/* 面包屑导航 */}
       <section className="pt-28 pb-4 bg-muted/30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <nav className="flex items-center gap-2 text-sm text-muted-foreground">
@@ -64,16 +77,14 @@ export default async function ProductDetailPage({ params }: PageProps) {
         </div>
       </section>
 
-      {/* 产品详情主体 */}
       <section className="py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-            {/* 左侧产品大图 + 图集缩略图 */}
             <div className="space-y-4">
               <div className="aspect-square bg-gradient-to-br from-muted to-muted/50 rounded-2xl overflow-hidden relative">
-                {product.main_image ? (
+                {mainShowImg ? (
                   <Image
-                    src={product.main_image}
+                    src={mainShowImg}
                     alt={product.name}
                     fill
                     className="object-cover"
@@ -100,22 +111,27 @@ export default async function ProductDetailPage({ params }: PageProps) {
                 )}
               </div>
 
-              {/* 图集图片 修复兜底 */}
               <div className="grid grid-cols-4 gap-4">
                 {product.main_image && (
-                  <div className="aspect-square bg-muted rounded-lg cursor-pointer hover:ring-2 ring-primary overflow-hidden relative">
+                  <div 
+                    onClick={()=>setMainShowImg(product.main_image)}
+                    className="aspect-square bg-muted rounded-lg cursor-pointer hover:ring-2 ring-primary overflow-hidden relative"
+                  >
                     <Image src={product.main_image} alt={product.name} fill className="object-cover" />
                   </div>
                 )}
                 {galleryImages.map((imgUrl: string, idx: number) => (
-                  <div key={idx} className="aspect-square bg-muted rounded-lg cursor-pointer hover:ring-2 ring-primary overflow-hidden relative">
+                  <div 
+                    key={idx} 
+                    onClick={()=>setMainShowImg(imgUrl)}
+                    className="aspect-square bg-muted rounded-lg cursor-pointer hover:ring-2 ring-primary overflow-hidden relative"
+                  >
                     <Image src={imgUrl} alt={`Gallery ${idx+1}`} fill className="object-cover" />
                   </div>
                 ))}
               </div>
             </div>
 
-            {/* 右侧产品信息 */}
             <div className="space-y-6">
               <div>
                 <Link
@@ -144,7 +160,6 @@ export default async function ProductDetailPage({ params }: PageProps) {
                 </p >
               )}
 
-              {/* 起订量 & 交期 */}
               <div className="grid grid-cols-2 gap-4">
                 <div className="bg-muted/50 rounded-xl p-4">
                   <p className="text-sm text-muted-foreground">Minimum Order</p >
@@ -156,7 +171,6 @@ export default async function ProductDetailPage({ params }: PageProps) {
                 </div>
               </div>
 
-              {/* 产品特点列表 */}
               {product.features && product.features.length > 0 && (
                 <div>
                   <h3 className="font-semibold text-foreground mb-3">Key Features</h3>
@@ -171,7 +185,6 @@ export default async function ProductDetailPage({ params }: PageProps) {
                 </div>
               )}
 
-              {/* 按钮：报价 + WhatsApp 修复链接 */}
               <div className="flex flex-col sm:flex-row gap-4 pt-4">
                 <Link
                   href="/contact"
@@ -180,7 +193,7 @@ export default async function ProductDetailPage({ params }: PageProps) {
                   Request Quote
                 </Link>
                 <a
-                  href="https://wa.me/你的WhatsApp号码"
+                  href=" "
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex-1 flex items-center justify-center gap-2 bg-green-500 text-white py-4 rounded-xl font-semibold hover:bg-green-600 transition-colors"
@@ -190,7 +203,6 @@ export default async function ProductDetailPage({ params }: PageProps) {
                 </a >
               </div>
 
-              {/* 信任标识 */}
               <div className="flex items-center gap-6 pt-4 border-t border-border">
                 <div className="flex items-center gap-2 text-sm text-muted-foreground">
                   <Shield className="w-5 h-5 text-green-500" />
@@ -204,7 +216,6 @@ export default async function ProductDetailPage({ params }: PageProps) {
             </div>
           </div>
 
-          {/* 产品规格表格 */}
           {product.specifications && Object.keys(product.specifications).length > 0 && (
             <div className="mt-16">
               <h2 className="text-2xl font-bold text-foreground mb-6">Specifications</h2>
@@ -225,7 +236,6 @@ export default async function ProductDetailPage({ params }: PageProps) {
             </div>
           )}
 
-          {/* 相关产品推荐 */}
           {relatedProducts.length > 0 && (
             <div className="mt-16">
               <h2 className="text-2xl font-bold text-foreground mb-6">Related Products</h2>
