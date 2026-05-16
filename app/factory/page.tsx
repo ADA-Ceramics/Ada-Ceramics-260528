@@ -114,7 +114,7 @@ export default function FactoryPage() {
               </span>
             </h1>
             <p className="text-lg md:text-xl leading-relaxed" style={{ color: '#6b7280' }}>
-              Our 50,000 sqm facility combines cutting-edge technology with traditional 
+              Our 30,000 sqm facility combines cutting-edge technology with traditional 
               craftsmanship, ensuring every piece meets the highest standards.
             </p>
           </div>
@@ -247,7 +247,7 @@ export default function FactoryPage() {
                 Skilled Craftspeople
               </h2>
               <p className="text-muted-foreground mb-6">
-                Our team of 300+ skilled workers brings together decades of experience 
+                Our team of 200+ skilled workers brings together decades of experience 
                 in ceramic manufacturing. From master craftspeople to quality engineers, 
                 every team member is dedicated to excellence.
               </p>
@@ -265,7 +265,7 @@ export default function FactoryPage() {
                   <p className="text-sm text-muted-foreground">R&D Designers</p>
                 </div>
                 <div className="bg-card rounded-xl p-4 border border-border">
-                  <p className="text-2xl font-bold text-primary">10+</p>
+                  <p className="text-2xl font-bold text-primary">8+</p>
                   <p className="text-sm text-muted-foreground">Project Managers</p>
                 </div>
               </div>
