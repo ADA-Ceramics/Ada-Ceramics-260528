@@ -52,8 +52,8 @@ export default async function ProductsPage({ searchParams }) {
             {filteredProducts.map((product) => (
               <Link
                 key={product.id}
-                // ✅ 只改这一行！让路由正确匹配详情页
-                href={`/products/${product.category_slug}/${product.slug}`}
+                // 🔥 🔥 🔥 修复路由冲突！直接访问详情页，不再被分类页拦截
+                href={`/products/${product.slug}`}
                 className="group border rounded-lg overflow-hidden hover:shadow-lg transition-shadow"
               >
                 <div className="aspect-square relative">
