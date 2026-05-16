@@ -127,7 +127,13 @@ export default async function ProductDetailPage({ params }: PageProps) {
                 <Link href="/contact" className="flex-1 bg-primary text-white text-center py-3 rounded-xl">
                   Request Quote
                 </Link>
-                <a href="#" className="flex-1 bg-green-500 text-white text-center py-3 rounded-xl flex items-center justify-center gap-2">
+                {/* ✅ 已绑定你的手机号：15919512131 */}
+                <a 
+                  href="https://wa.me/8615919512131" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="flex-1 bg-green-500 text-white text-center py-3 rounded-xl flex items-center justify-center gap-2"
+                >
                   <MessageCircle className="w-5 h-5" />
                   WhatsApp
                 </a>
