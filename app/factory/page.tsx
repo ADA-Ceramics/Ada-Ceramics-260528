@@ -127,19 +127,19 @@ export default function FactoryPage() {
           <div className="bg-card rounded-2xl shadow-xl border border-border p-8">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
               <div className="text-center">
-                <p className="text-4xl md:text-5xl font-bold text-primary">{companyInfo.factory.area}</p>
+                <p className="text-4xl md:text-5xl font-bold text-primary">30,000</p>
                 <p className="text-muted-foreground mt-2">Square Meters</p>
               </div>
               <div className="text-center">
-                <p className="text-4xl md:text-5xl font-bold text-primary">{companyInfo.factory.workers}</p>
+                <p className="text-4xl md:text-5xl font-bold text-primary">200+</p>
                 <p className="text-muted-foreground mt-2">Skilled Workers</p>
               </div>
               <div className="text-center">
-                <p className="text-4xl md:text-5xl font-bold text-primary">{companyInfo.factory.productionLines}</p>
+                <p className="text-4xl md:text-5xl font-bold text-primary">8+</p>
                 <p className="text-muted-foreground mt-2">Production Lines</p>
               </div>
               <div className="text-center">
-                <p className="text-4xl md:text-5xl font-bold text-primary">{companyInfo.factory.qualityRate}</p>
+                <p className="text-4xl md:text-5xl font-bold text-primary">99.8%</p>
                 <p className="text-muted-foreground mt-2">Quality Rate</p>
               </div>
             </div>
@@ -222,7 +222,7 @@ export default function FactoryPage() {
                 </div>
               </div>
               <div className="absolute -bottom-6 -right-6 bg-green-500 text-white rounded-xl p-6 shadow-xl">
-                <p className="text-4xl font-bold">{companyInfo.factory.qualityRate}</p>
+                <p className="text-4xl font-bold">99.8%</p>
                 <p className="text-sm opacity-90">Pass Rate</p>
               </div>
             </div>
