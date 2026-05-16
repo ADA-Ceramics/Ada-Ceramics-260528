@@ -68,7 +68,7 @@ export default async function CategoryProductsPage({ params }: PageProps) {
               {products.map((product: Product) => (
                 <Link
                   key={product.id}
-                  href={`/products/${product.slug}`}
+                  href={`/products/${categorySlug}/${product.slug}`}
                   className="group bg-card rounded-xl overflow-hidden border border-border hover:shadow-lg transition-all duration-300"
                 >
                   <div className="aspect-square bg-gradient-to-br from-muted to-muted/50 relative overflow-hidden">
