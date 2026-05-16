@@ -8,10 +8,10 @@ export const metadata = {
   description: "High quality ceramic tableware and drinkware",
 };
 
-// 严格对齐 types.ts 里的真实分类slug
+// ✅ 已按你数据库里的真实slug修正
 const fixedCategories = [
   { slug: "all", name: "All Products" },
-  { slug: "high-temp-white-porcelain", name: "High-Temperature White Porcelain" },
+  { slug: "high-temperature-white-porcelain", name: "High-Temperature White Porcelain" },
   { slug: "color-glaze", name: "Color Glaze Ceramics" },
   { slug: "kiln-change-ceramic", name: "Kiln Change Ceramic" },
 ];
@@ -59,7 +59,7 @@ export default async function ProductsPage({ searchParams }) {
               filteredProducts.map((product) => (
                 <Link
                   key={product.id}
-                  href={`/products/${product.category_slug}/${product.slug}`}
+                  href={`/products/${product.slug}`}
                   className="group border rounded-lg overflow-hidden hover:shadow-lg transition-shadow"
                 >
                   <div className="aspect-square relative">
