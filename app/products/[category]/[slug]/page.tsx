@@ -7,14 +7,14 @@ import { Footer } from "@/components/layout/footer"
 import { getProductBySlug, getProductsByCategory } from "@/lib/supabase/products"
 import { CATEGORY_INFO, type Product } from "@/lib/supabase/types"
 
-// ✅ 这是唯一正确的导入（上级目录）
+// 正确导入组件
 import ImageGallerySwitch from "../ImageGallerySwitch"
 
 interface PageProps {
   params: Promise<{ category: string; slug: string }>
 }
 
-// 谷歌SEO标准元数据 正常抓取
+// SEO 元数据
 export async function generateMetadata({ params }: PageProps) {
   const { slug: productSlug } = await params
   const product = await getProductBySlug(productSlug)
@@ -35,14 +35,15 @@ export async function generateMetadata({ params }: PageProps) {
 export default async function ProductDetailPage({ params }: PageProps) {
   const { category: categorySlug, slug: productSlug } = await params
   const product = await getProductBySlug(productSlug)
-  const categoryInfo = CATEGORY_INFO[categorySlug]
 
-  if (!product || !categoryInfo) {
-    notFound()
-  }
+  // 🔥 修复 404 核心逻辑
+  if (!product) notFound()
+  const realCategorySlug = product.category_slug || categorySlug
+  const categoryInfo = CATEGORY_INFO[realCategorySlug]
+  if (!categoryInfo) notFound()
 
   const galleryImages = product.gallery_images ?? []
-  const relatedProducts = (await getProductsByCategory(categorySlug))
+  const relatedProducts = (await getProductsByCategory(realCategorySlug))
     .filter((p) => p.id !== product.id)
     .slice(0, 4)
 
@@ -57,7 +58,7 @@ export default async function ProductDetailPage({ params }: PageProps) {
             <ChevronRight className="w-4 h-4" />
             <Link href="/products" className="hover:text-foreground transition-colors">Products</Link>
             <ChevronRight className="w-4 h-4" />
-            <Link href={`/products/${categorySlug}`} className="hover:text-foreground transition-colors">
+            <Link href={`/products/${realCategorySlug}`} className="hover:text-foreground transition-colors">
               {categoryInfo.name}
             </Link>
             <ChevronRight className="w-4 h-4" />
@@ -69,7 +70,6 @@ export default async function ProductDetailPage({ params }: PageProps) {
       <section className="py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-            {/* 图片切换组件 客户端独立拆分 不影响SEO */}
             <ImageGallerySwitch
               mainImg={product.main_image}
               galleryList={galleryImages}
@@ -80,7 +80,7 @@ export default async function ProductDetailPage({ params }: PageProps) {
             <div className="space-y-6">
               <div>
                 <Link
-                  href={`/products/${categorySlug}`}
+                  href={`/products/${realCategorySlug}`}
                   className="text-sm text-primary hover:underline"
                 >
                   {categoryInfo.name}
@@ -188,7 +188,7 @@ export default async function ProductDetailPage({ params }: PageProps) {
                 {relatedProducts.map((relProduct: Product) => (
                   <Link
                     key={relProduct.id}
-                    href={`/products/${categorySlug}/${relProduct.slug}`}
+                    href={`/products/${realCategorySlug}/${relProduct.slug}`}
                     className="group bg-card rounded-xl overflow-hidden border border-border hover:shadow-lg transition-all duration-300"
                   >
                     <div className="aspect-square bg-gradient-to-br from-muted to-muted/50 relative overflow-hidden">
