@@ -33,7 +33,7 @@ export function Header() {
   return (
     <header
       className={cn(
-        "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
+        "fixed top-0 left-0 right-0 z-[9999] transition-all duration-300",
         isScrolled
           ? "bg-white/95 backdrop-blur-md shadow-sm"
           : "bg-transparent"
@@ -81,12 +81,12 @@ export function Header() {
                       )} />
                     </Link>
                     
-                    {/* Dropdown Menu */}
+                    {/* ✅ 修复下拉菜单：高度、层级、显示 */}
                     <div className={cn(
-                      "absolute top-full left-0 pt-2 transition-all duration-200",
+                      "absolute top-full left-0 w-[320px] z-[9999] pt-2 transition-all duration-300",
                       isProductsOpen ? "opacity-100 visible translate-y-0" : "opacity-0 invisible -translate-y-2"
                     )}>
-                      <div className="bg-white rounded-xl shadow-xl border border-border/50 py-2 min-w-[280px]">
+                      <div className="bg-white rounded-xl shadow-xl border border-border/50 py-2 min-h-[300px]">
                         <div className="px-4 py-2 border-b border-border/50">
                           <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">
                             Product Categories
