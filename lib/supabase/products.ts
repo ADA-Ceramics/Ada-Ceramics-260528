@@ -49,7 +49,7 @@ export async function getProductsByCategory(categorySlug: string) {
   return data || []
 }
 
-// 获取单个产品（原样保留 select('*') 全字段读取）
+// 获取单个产品 修复404问题 去掉single()
 export async function getProductBySlug(slug: string): Promise<Product | null> {
   const supabase = await createClient()
   
@@ -58,14 +58,13 @@ export async function getProductBySlug(slug: string): Promise<Product | null> {
     .select('*')
     .eq('slug', slug)
     .eq('is_active', true)
-    .single()
-  
+
   if (error) {
     console.error('Error fetching product:', error)
     return null
   }
   
-  return data
+  return data?.[0] ?? null
 }
 
 // 获取分类下的产品数量
