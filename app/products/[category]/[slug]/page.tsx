@@ -1,19 +1,18 @@
-"use client";
-
 import Link from "next/link"
 import Image from "next/image"
 import { notFound } from "next/navigation"
-import { useState, useEffect } from "react"
 import { ChevronRight, Check, Shield, Truck, MessageCircle } from "lucide-react"
 import { Header } from "@/components/layout/header"
 import { Footer } from "@/components/layout/footer"
 import { getProductBySlug, getProductsByCategory } from "@/lib/supabase/products"
 import { CATEGORY_INFO, type Product } from "@/lib/supabase/types"
+import ImageGallerySwitch from "./ImageGallerySwitch"
 
 interface PageProps {
   params: Promise<{ category: string; slug: string }>
 }
 
+// 谷歌SEO标准元数据 正常抓取
 export async function generateMetadata({ params }: PageProps) {
   const { slug: productSlug } = await params
   const product = await getProductBySlug(productSlug)
@@ -26,36 +25,24 @@ export async function generateMetadata({ params }: PageProps) {
 
   return {
     title: `${product.name} | ADA CERAMICS - Premium Ceramic Manufacturer`,
-    description: product.description || `Premium ${product.name} from ADA CERAMICS`,
+    description: product.description || `High quality ${product.name} wholesale from China factory`,
+    keywords: ["ceramic", "tableware", "wholesale", "factory supply", product.name],
   }
 }
 
-export default function ProductDetailPage({ params }: PageProps) {
-  const [pageParams, setPageParams] = useState<{category:string,slug:string}|null>(null)
-  const [product, setProduct] = useState<Product|null>(null)
-  const [categoryInfo, setCategoryInfo] = useState<any>(null)
-  const [mainShowImg, setMainShowImg] = useState("")
-  const [relatedProducts, setRelatedProducts] = useState<Product[]>([])
+export default async function ProductDetailPage({ params }: PageProps) {
+  const { category: categorySlug, slug: productSlug } = await params
+  const product = await getProductBySlug(productSlug)
+  const categoryInfo = CATEGORY_INFO[categorySlug]
 
-  useEffect(() => {
-    const initData = async () => {
-      const p = await params
-      setPageParams(p)
-      const res = await getProductBySlug(p.slug)
-      if(!res) return notFound()
-      setProduct(res)
-      setCategoryInfo(CATEGORY_INFO[p.category])
-      setMainShowImg(res.main_image || "")
-      const list = await getProductsByCategory(p.category)
-      setRelatedProducts(list.filter(item => item.id !== res.id).slice(0,4))
-    }
-    initData()
-  },[params])
+  if (!product || !categoryInfo) {
+    notFound()
+  }
 
-  if(!product || !categoryInfo || !pageParams) return null
-
-  const { category: categorySlug } = pageParams
   const galleryImages = product.gallery_images ?? []
+  const relatedProducts = (await getProductsByCategory(categorySlug))
+    .filter((p) => p.id !== product.id)
+    .slice(0, 4)
 
   return (
     <div className="min-h-screen bg-background">
@@ -80,57 +67,13 @@ export default function ProductDetailPage({ params }: PageProps) {
       <section className="py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-            <div className="space-y-4">
-              <div className="aspect-square bg-gradient-to-br from-muted to-muted/50 rounded-2xl overflow-hidden relative">
-                {mainShowImg ? (
-                  <Image
-                    src={mainShowImg}
-                    alt={product.name}
-                    fill
-                    className="object-cover"
-                    priority
-                  />
-                ) : (
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="w-48 h-48 rounded-full bg-primary/10 flex items-center justify-center">
-                      <div className="w-32 h-32 rounded-full bg-primary/20" />
-                    </div>
-                  </div>
-                )}
-                {product.features && product.features.length > 0 && (
-                  <div className="absolute top-4 left-4 flex gap-2 flex-wrap">
-                    {product.features.slice(0, 2).map((feature) => (
-                      <span
-                        key={feature}
-                        className="bg-green-500/90 text-white text-sm px-3 py-1 rounded-full"
-                      >
-                        {feature}
-                      </span>
-                    ))}
-                  </div>
-                )}
-              </div>
-
-              <div className="grid grid-cols-4 gap-4">
-                {product.main_image && (
-                  <div 
-                    onClick={()=>setMainShowImg(product.main_image)}
-                    className="aspect-square bg-muted rounded-lg cursor-pointer hover:ring-2 ring-primary overflow-hidden relative"
-                  >
-                    <Image src={product.main_image} alt={product.name} fill className="object-cover" />
-                  </div>
-                )}
-                {galleryImages.map((imgUrl: string, idx: number) => (
-                  <div 
-                    key={idx} 
-                    onClick={()=>setMainShowImg(imgUrl)}
-                    className="aspect-square bg-muted rounded-lg cursor-pointer hover:ring-2 ring-primary overflow-hidden relative"
-                  >
-                    <Image src={imgUrl} alt={`Gallery ${idx+1}`} fill className="object-cover" />
-                  </div>
-                ))}
-              </div>
-            </div>
+            {/* 图片切换组件 客户端独立拆分 不影响SEO */}
+            <ImageGallerySwitch
+              mainImg={product.main_image}
+              galleryList={galleryImages}
+              altName={product.name}
+              tagList={product.features}
+            />
 
             <div className="space-y-6">
               <div>
