@@ -3,7 +3,7 @@ export interface Product {
   name: string
   slug: string
   category: string
-  category_slug?: string // 👈 必须加这一行！
+  category_slug?: string
   description: string | null
   price: number | null
   main_image: string | null
@@ -25,7 +25,7 @@ export interface ProductCategory {
   description: string
 }
 
-// 分类信息
+// 分类信息（已删除重复项，只剩下 3 个正确项目）
 export const CATEGORY_INFO: Record<string, { name: string; description: string }> = {
   'high-temp-white-porcelain': {
     name: 'White High-temp Porcelain',
@@ -38,9 +38,5 @@ export const CATEGORY_INFO: Record<string, { name: string; description: string }
   'kiln-change-ceramic': {
     name: 'Kiln Change Ceramic',
     description: 'Artistic kiln transformation ceramics with natural, unpredictable color patterns.',
-  },
-  'high-temperature-white-porcelain': { // 👈 加这个，匹配你真实的URL
-    name: 'High Temperature White Porcelain',
-    description: 'Premium white porcelain products',
   },
 }
