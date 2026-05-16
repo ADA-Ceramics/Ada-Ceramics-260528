@@ -49,7 +49,7 @@ export async function getProductsByCategory(categorySlug: string) {
   return data || []
 }
 
-// 获取单个产品
+// 获取单个产品（原样保留 select('*') 全字段读取）
 export async function getProductBySlug(slug: string): Promise<Product | null> {
   const supabase = await createClient()
   
