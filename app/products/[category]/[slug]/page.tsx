@@ -65,7 +65,7 @@ export default async function ProductDetailPage({ params }: PageProps) {
       <section className="py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-            {/* 左侧产品大图 + 缩略图 */}
+            {/* 左侧产品大图 + 图集缩略图 */}
             <div className="space-y-4">
               <div className="aspect-square bg-gradient-to-br from-muted to-muted/50 rounded-2xl overflow-hidden relative">
                 {product.main_image ? (
@@ -96,13 +96,18 @@ export default async function ProductDetailPage({ params }: PageProps) {
                   </div>
                 )}
               </div>
-              {/* 下方缩略图占位 */}
+
+              {/* 图集图片 自动读取Supabase gallery_images */}
               <div className="grid grid-cols-4 gap-4">
-                {[1, 2, 3, 4].map((i) => (
-                  <div
-                    key={i}
-                    className="aspect-square bg-muted rounded-lg cursor-pointer hover:ring-2 ring-primary transition-all"
-                  />
+                {product.main_image && (
+                  <div className="aspect-square bg-muted rounded-lg cursor-pointer hover:ring-2 ring-primary overflow-hidden relative">
+                    <Image src={product.main_image} alt={product.name} fill className="object-cover" />
+                  </div>
+                )}
+                {product.gallery_images?.map((imgUrl: string, idx: number) => (
+                  <div key={idx} className="aspect-square bg-muted rounded-lg cursor-pointer hover:ring-2 ring-primary overflow-hidden relative">
+                    <Image src={imgUrl} alt={`Gallery ${idx+1}`} fill className="object-cover" />
+                  </div>
                 ))}
               </div>
             </div>
@@ -172,7 +177,7 @@ export default async function ProductDetailPage({ params }: PageProps) {
                   Request Quote
                 </Link>
                 <a
-                  href={`https://wa.me/?text=I'm interested in ${encodeURIComponent(product.name)}`}
+                  href={`https://wa.me/8615919512131?text=Hi,%20I%20am%20interested%20in%20${encodeURIComponent(product.name)}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex-1 flex items-center justify-center gap-2 bg-green-500 text-white py-4 rounded-xl font-semibold hover:bg-green-600 transition-colors"
