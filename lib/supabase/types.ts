@@ -28,7 +28,7 @@ export interface ProductCategory {
 // 分类信息（已删除重复项，只剩下 3 个正确项目）
 export const CATEGORY_INFO: Record<string, { name: string; description: string }> = {
   'high-temp-white-porcelain': {
-    name: 'White High-temp Porcelain',
+    name: 'High-Temperature White Porcelain',
     description: 'Premium white porcelain fired at high temperatures for exceptional durability and elegant appearance.',
   },
   'color-glaze': {
